@@ -1,0 +1,19 @@
+{
+  "id": "K89_POKEMON_BLUE_JP_HEN",
+  "name": "K89 Pokemon Blue JP Hen",
+  "version": "0.4.5",
+  "api": 2,
+  "entry": "main.lua",
+  "profile": "content",
+  "category": "GAMEPLAY",
+  "game_version": ">=0.1.56 <2.0.0",
+  "priority": 200,
+  "dependencies": [],
+  "optional_dependencies": [],
+  "conflicts": [],
+  "permissions": [
+    "engine_internals"
+  ],
+  "affects_link": false,
+  "description": "K89 Japanese localization of Pokemon Blue for Gen1Recomp. Built from the audited Japanese Blue implementation and canonical Japanese dataset, including final runtime map-name localization."
+}
