@@ -17,6 +17,25 @@ Gen1Recomp版『Pokémon Blue』を日本語化するための非公式MODです
 ただし、ゲーム全体のすべての状況について確認が完了しているわけではありません。
 一部に未翻訳のテキスト、表示位置の問題、表記の不一致、その他の不具合が残っている可能性があります。
 
+
+## スクリーンショット
+
+### オーキド博士との会話
+
+![オーキド博士](screenshots/K89_BLUE_1.jpg)
+
+### 名前入力画面
+
+![名前入力画面](screenshots/K89_BLUE_2.jpg)
+
+### ゲーム画面
+
+![ゲーム画面](screenshots/K89_BLUE_3.jpg)
+
+### バトル画面
+
+![バトル画面](screenshots/K89_BLUE_4.jpg)
+
 ## インストール
 
 配布用ZIPは **[Releases](https://github.com/yaizoo/K89-Pokemon-Blue-JP/releases)** からダウンロードしてください。
