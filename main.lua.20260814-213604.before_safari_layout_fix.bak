@@ -1587,80 +1587,24 @@ JPMoveSafariStrings:override(
   "アナウンス『ピンポーン！\vサファリ　ボールを\nぜんぶ　なげました！"
 )
 
--- Gen1Recomp draws the Safari Ball count separately from the battle menu.
--- Japanese Blue instead prints the remaining count directly into
--- SAFARI_BATTLE_MENU_TEMPLATE, so this hook suppresses the standalone
--- counter and recreates the original Japanese menu placement.
+-- BattleState's standalone Safari-ball counter bypasses Strings():
+--
+--   Font.draw(("BALLx%2d"):format(self.safari.balls), 88, 72)
+--
+-- Translate only that exact draw position/pattern.
 local JPSafariFont = require("src.render.Font")
 local previousSafariDraw = JPSafariFont.draw
-local previousSafariDrawCode = JPSafariFont.drawCode
-
--- Japanese Blue writes the remaining Safari Ball count directly into
--- SAFARI_BATTLE_MENU_TEMPLATE at hlcoord 10,14 (80,112), rather than
--- displaying Gen1Recomp's separate English-style BALLx counter.
-local K89SafariBallCount = nil
 
 JPSafariFont.draw = function(value, x, y, ...)
-  if type(value) == "string" then
-    -- Actual runtime Safari Ball counter.
-    -- Move two 8px character cells right: x56 -> x72.
-    if y == 112 and x == 56 and value:match("^%d+$") then
-      x = 80
-    end
-
-    if y == 112 then
-      local f = io.open("/tmp/k89_safari_exact.log", "a")
-      if f then
-        f:write(string.format("value=%q x=%s y=%s\\n",
-          tostring(value), tostring(x), tostring(y)))
-        f:close()
-      end
-    end
-
-    -- Capture Gen1Recomp's standalone BALLx count, but do not draw it.
-    -- Normal renderer: (88,72)
-    -- Wide renderer:   (200,72)
-    if y == 72 and (x == 88 or x == 200) then
-      local count = value:match("^BALLx%s*(%d+)$")
-      if count then
-        K89SafariBallCount = count
-        return
-      end
-    end
-
-    -- Japanese Blue SAFARI_BATTLE_MENU_TEMPLATE:
-    --   label begins at col 2  = x16
-    --   count is printed col 10 = x80
-    if value == "サファリボール×" and x == 16 and y == 112 then
-      previousSafariDraw(value, x, y, ...)
-
-      if K89SafariBallCount then
-        previousSafariDraw(K89SafariBallCount, 96, 112, ...)
-      end
-
-      return
-    end
-
-    -- Japanese Blue right-column text begins at col 13 = x104.
-    -- Gen1Recomp's English layout begins it at x112.
-    if x == 112 and (y == 112 or y == 128) then
-      if value == "エサをなげる" or value == "にげる" then
-        x = 104
-      end
+  if x == 88 and y == 72 and type(value) == "string" then
+    local count = value:match("^BALLx%s*(%d+)$")
+    if count then
+      value = "サファリボール×" .. count
+      x = 56
     end
   end
 
   return previousSafariDraw(value, x, y, ...)
-end
-
-JPSafariFont.drawCode = function(code, x, y, ...)
-  -- Japanese Blue Safari right-column cursor is col 12 = x96.
-  -- Gen1Recomp places it at x104.
-  if code == 0xED and x == 104 and (y == 112 or y == 128) then
-    x = 96
-  end
-
-  return previousSafariDrawCode(code, x, y, ...)
 end
 
 
@@ -2777,7 +2721,7 @@ local JP_EXTRA = {
   ["COINS %4d"] = "コイン %4dまい",
   ["Darn!\nRan out of coins!"] = "あっ！\nコインが　なくなった！",
   ["Not enough\ncoins!"] = "コインが\nたりない！",
-  ["%s lined up!\nScored %d coins!"] = "%sが　そろった！\nコイン%dまい　いただき！",
+  ["%s lined up!\nScored %d coins!"] = "%sが　そろった！\nコイン%dまい　かくとく！",
   ["POKé BALL"] = "モンスターボール",
   ["%s used\nPOKé BALL!"] = "%sは\nモンスターボールを　つかった！",
   ["%s used\nSAFARI BALL!"] = "%sは\nサファリボールを　つかった！",
@@ -6535,143 +6479,3 @@ do
 end
 
 print("[K89_POKEMON_BLUE_JP_HEN] Japanese Blue title logo active")
-
-
--- ================================================================
--- K89 JAPANESE BLUE — TOWN MAP BANNER
--- ================================================================
---
--- Japanese Blue canonical Town Map location names.
--- This changes only the displayed banner on the Bag Town Map.
--- It does not alter underlying map IDs / coordinates / game state.
--- ================================================================
-
-do
-  local K89TownMap = require("src.ui.TownMap")
-  local K89OriginalTownMapBannerText = K89TownMap.bannerText
-
-  local JP_TOWN_MAP_NAMES = {
-    ["PALLET TOWN"]      = "マサラ",
-    ["VIRIDIAN CITY"]    = "トキワ",
-    ["PEWTER CITY"]      = "ニビ",
-    ["CERULEAN CITY"]    = "ハナダ",
-    ["LAVENDER TOWN"]    = "シオン",
-    ["VERMILION CITY"]   = "クチバ",
-    ["CELADON CITY"]     = "タマムシ",
-    ["FUCHSIA CITY"]     = "セキチク",
-    ["CINNABAR ISLAND"]  = "グレン",
-    ["INDIGO PLATEAU"]   = "セキエイ",
-    ["SAFFRON CITY"]     = "ヤマブキ",
-
-    ["VIRIDIAN FOREST"]  = "トキワのもり",
-
-    ["ROCK TUNNEL"]      = "イワヤマトンネル",
-    ["SEA COTTAGE"]      = "みさき　の　こや",
-
-    ["POKEMON LEAGUE"]   = "リーグほんぶ",
-    ["POKéMON LEAGUE"]   = "リーグほんぶ",
-    ["UNDERGROUND PATH"] = "ちかつうろ",
-
-    ["SEAFOAM ISLANDS"]  = "ふたごじま",
-    ["VICTORY ROAD"]     = "チャンピオンロード",
-
-    ["ROCKET HQ"]        = "<ROCKET>アジト",
-    ["SILPH CO"]         = "シルフほんしゃビル",
-    ["SILPH CO."]        = "シルフほんしゃビル",
-    ["POKEMON MANSION"]  = "#やしき",
-    ["POKéMON MANSION"]  = "#やしき",
-    ["SAFARI ZONE"]      = "サファリゾーン",
-    ["CERULEAN CAVE"]    = "ななしのどうくつ",
-    ["POWER PLANT"]      = "むじんはつでんしょ",
-
-    -- K89 exact Gen1Recomp Town Map runtime aliases
-    ["MT MOON"]          = "オツキミやま",
-    ["MT. MOON"]         = "オツキミやま",
-    ["MT.MOON"]          = "オツキミやま",
-
-    ["SEA ROUTE 19"]     = "１９ばんすいどう",
-    ["SEA ROUTE 20"]     = "２０ばんすいどう",
-    ["SEA ROUTE 21"]     = "２１ばんすいどう",
-
-    ["POKEMON TOWER"]    = "ポケモンタワー",
-    ["POKéMON TOWER"]    = "ポケモンタワー",
-    ["POKE TOWER"]       = "ポケモンタワー",
-    ["POKEタワー"]       = "ポケモンタワー",
-
-    ["S.S. ANNE"]        = "サント·アンヌごう",
-    ["S.S.ANNE"]         = "サント·アンヌごう",
-    ["SS ANNE"]          = "サント·アンヌごう",
-    ["ST ANNE"]          = "サント·アンヌごう",
-    ["ST. ANNE"]         = "サント·アンヌごう",
-    ["ST.ANNE"]          = "サント·アンヌごう",
-
-    ["DIGLETTS CAVE"]    = "ディグダのあな",
-    ["DIGLETT'S CAVE"]   = "ディグダのあな",
-    ["DIGLETTS' CAVE"]   = "ディグダのあな",
-    ["DIGLETT CAVE"]     = "ディグダのあな",
-
-  }
-
-  local function japaneseRouteName(name)
-    local n = name:match("^ROUTE%s+(%d+)$")
-    if not n then return nil end
-
-    local num = tonumber(n)
-    if not num then return nil end
-
-    local fullwidth = n:gsub("%d", {
-      ["0"] = "０",
-      ["1"] = "１",
-      ["2"] = "２",
-      ["3"] = "３",
-      ["4"] = "４",
-      ["5"] = "５",
-      ["6"] = "６",
-      ["7"] = "７",
-      ["8"] = "８",
-      ["9"] = "９",
-    })
-
-    if num >= 19 and num <= 21 then
-      return fullwidth .. "ばんすいどう"
-    end
-
-    return fullwidth .. "ばんどうろ"
-  end
-
-  K89TownMap.bannerText = function(self, loc)
-    -- TEMP DEBUG: log exact runtime names for remaining Town Map mismatches.
-    if loc and loc.name then
-      local upper = tostring(loc.name):upper()
-      if upper:find("MOON", 1, true)
-         or upper:find("ROUTE", 1, true) then
-        local f = io.open("/tmp/k89_townmap_remaining.log", "a")
-        if f then
-          f:write(string.format(
-            'name=%q fly=%s nest=%s mode=%s\n',
-            tostring(loc.name),
-            tostring(self.fly),
-            tostring(self.nestSpecies),
-            tostring(self.mode)
-          ))
-          f:close()
-        end
-      end
-    end
-
-    -- Bag Town Map only.
-    -- Leave Fly and Pokédex AREA behavior untouched.
-    if not self.nestSpecies and loc and loc.name then
-      local jp = JP_TOWN_MAP_NAMES[loc.name]
-        or japaneseRouteName(loc.name)
-
-      if jp then
-        return jp
-      end
-    end
-
-    return K89OriginalTownMapBannerText(self, loc)
-  end
-end
-
-print("[JAPANESE_BLUE] Japanese Town Map banner active")

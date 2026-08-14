@@ -6564,17 +6564,21 @@ do
     ["SAFFRON CITY"]     = "ヤマブキ",
 
     ["VIRIDIAN FOREST"]  = "トキワのもり",
-
+    ["MT MOON"]          = "オツキミやま",
+    ["MT. MOON"]         = "オツキミやま",
     ["ROCK TUNNEL"]      = "イワヤマトンネル",
     ["SEA COTTAGE"]      = "みさき　の　こや",
-
+    ["S.S. ANNE"]        = "サント·アンヌごう",
+    ["SS ANNE"]          = "サント·アンヌごう",
     ["POKEMON LEAGUE"]   = "リーグほんぶ",
     ["POKéMON LEAGUE"]   = "リーグほんぶ",
     ["UNDERGROUND PATH"] = "ちかつうろ",
-
+    ["POKEMON TOWER"]    = "#タワー",
+    ["POKéMON TOWER"]    = "#タワー",
     ["SEAFOAM ISLANDS"]  = "ふたごじま",
     ["VICTORY ROAD"]     = "チャンピオンロード",
-
+    ["DIGLETTS CAVE"]    = "ディグダのあな",
+    ["DIGLETT'S CAVE"]   = "ディグダのあな",
     ["ROCKET HQ"]        = "<ROCKET>アジト",
     ["SILPH CO"]         = "シルフほんしゃビル",
     ["SILPH CO."]        = "シルフほんしゃビル",
@@ -6583,33 +6587,6 @@ do
     ["SAFARI ZONE"]      = "サファリゾーン",
     ["CERULEAN CAVE"]    = "ななしのどうくつ",
     ["POWER PLANT"]      = "むじんはつでんしょ",
-
-    -- K89 exact Gen1Recomp Town Map runtime aliases
-    ["MT MOON"]          = "オツキミやま",
-    ["MT. MOON"]         = "オツキミやま",
-    ["MT.MOON"]          = "オツキミやま",
-
-    ["SEA ROUTE 19"]     = "１９ばんすいどう",
-    ["SEA ROUTE 20"]     = "２０ばんすいどう",
-    ["SEA ROUTE 21"]     = "２１ばんすいどう",
-
-    ["POKEMON TOWER"]    = "ポケモンタワー",
-    ["POKéMON TOWER"]    = "ポケモンタワー",
-    ["POKE TOWER"]       = "ポケモンタワー",
-    ["POKEタワー"]       = "ポケモンタワー",
-
-    ["S.S. ANNE"]        = "サント·アンヌごう",
-    ["S.S.ANNE"]         = "サント·アンヌごう",
-    ["SS ANNE"]          = "サント·アンヌごう",
-    ["ST ANNE"]          = "サント·アンヌごう",
-    ["ST. ANNE"]         = "サント·アンヌごう",
-    ["ST.ANNE"]          = "サント·アンヌごう",
-
-    ["DIGLETTS CAVE"]    = "ディグダのあな",
-    ["DIGLETT'S CAVE"]   = "ディグダのあな",
-    ["DIGLETTS' CAVE"]   = "ディグダのあな",
-    ["DIGLETT CAVE"]     = "ディグダのあな",
-
   }
 
   local function japaneseRouteName(name)
