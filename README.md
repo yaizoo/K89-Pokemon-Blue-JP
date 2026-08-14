@@ -14,7 +14,7 @@ Gen1Recomp版『Pokémon Blue』を日本語化するための非公式MODです
 
 ## 現在のバージョン
 
-**v0.4.5 Beta**
+**v0.5.0**
 
 現在は公開ベータ版です。
 
@@ -48,9 +48,9 @@ Gen1Recomp版『Pokémon Blue』を日本語化するための非公式MODです
 
 1. Releasesから最新版の `K89-Pokemon-Blue-JP-...zip` をダウンロードします。
 2. ZIPファイルを展開します。
-3. `K89_POKEMON_BLUE_JP_HEN` フォルダをGen1Recompの `mods` フォルダに入れます。
+3. `K89_POKEMON_BLUE_JP` フォルダをGen1Recompの `mods` フォルダに入れます。
 4. Gen1Recompを起動します。
-5. MOD一覧から **K89 Pokemon Blue JP Hen** を有効にします。
+5. MOD一覧から **K89 Pokemon Blue JP** を有効にします。
 6. Pokémon Blueを起動します。
 
 > **注意:** GitHub上部の「Code」→「Download ZIP」ではなく、**Releasesから配布用ZIPをダウンロードしてください。**

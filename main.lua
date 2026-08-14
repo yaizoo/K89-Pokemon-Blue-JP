@@ -3253,9 +3253,9 @@ JPGeneratedText:override("_FightingDojoBlackbelt4EndBattleText", "ぐッ！　�
 JPGeneratedText:override("_FightingDojoHitmonchanPokeBallText", "ウスッ！　うなる　こぶし！\nエビワラーに　するか？")
 JPGeneratedText:override("_FightingDojoHitmonleePokeBallText", "ウスッ！　キック　わざのおに！\nサワムラーを　とるか？")
 JPGeneratedText:override("_FightingDojoKarateMasterDefeatedText", "ウオリャ！\nだー！　やられたあー！")
-JPGeneratedText:override("_FightingDojoKarateMasterIWillGiveYouAPokemonText", "わしは　たしかに　まけた！\\012しかし　どうじょうの　かんばん\\n⋯⋯　だけは！\\011もって　いかないで　くれい！\\012かわりに　わしの　だいじな\\nかくとう　ポケモンを　わたす！\\012どうか！\\nすきな　ほうを　えらんで　くれい！")
-JPGeneratedText:override("_FightingDojoKarateMasterStayAndTrainWithUsText", "オスッ！\\012どうだ？　ついでに　ここで\\nカラテ　れんしゅう　していくか！")
-JPGeneratedText:override("_FightingDojoKarateMasterText", "オスッ！\012わしが　かくとう　どうじょうの\nしはん　カラテ　だいおう　である！\012おぬしは　どうじょう　やぶりか！\nならば　ようしゃは　せんぞ！\012トオリャー！ウオリャ！\nだー！　やられたあー！")
+JPGeneratedText:override("_FightingDojoKarateMasterIWillGiveYouAPokemonText", "わしは　たしかに　まけた！\012しかし　どうじょうの　かんばん\n⋯⋯　だけは！\011もって　いかないで　くれい！\012かわりに　わしの　だいじな\nかくとう　ポケモンを　わたす！\012どうか！\nすきな　ほうを　えらんで　くれい！")
+JPGeneratedText:override("_FightingDojoKarateMasterStayAndTrainWithUsText", "オスッ！\012どうだ？　ついでに　ここで\nカラテ　れんしゅう　していくか！")
+JPGeneratedText:override("_FightingDojoKarateMasterText", "オスッ！\012わしが　かくとう　どうじょうの\nしはん　カラテ　だいおう　である！\012おぬしは　どうじょう　やぶりか！\nならば　ようしゃは　せんぞ！\012トオリャー！")
 JPGeneratedText:override("_FightingDojoText", "かくとう　どうじょう！")
 JPGeneratedText:override("_FileDataDestroyedText", "フアイルの　データが\nこわれています！")
 JPGeneratedText:override("_FireDefrostedText", "ほのおをあびて{TARGET}の\nこおりが　とけた！")
@@ -4290,7 +4290,7 @@ JPGeneratedText:override("_Route16CyclingRoadSignText", "さかみちを　た�
 JPGeneratedText:override("_Route16FlyHouseBrunetteGirlHM02ExplanationText", "ひでんマシン０２は　そらをとぶ！\nとても　べんりな\011すばらしい　わざ　なの！\012だいじに　つかってね！")
 JPGeneratedText:override("_Route16FlyHouseBrunetteGirlHM02NoRoomText", "あなた　にもつ　いっぱいよ")
 JPGeneratedText:override("_Route16FlyHouseBrunetteGirlReceivedHM02Text", "{PLAYER}は　おんなのこから\nひでんマシン０２を　もらった！")
-JPGeneratedText:override("_Route16FlyHouseBrunetteGirlText", "あらま⋯！\nみつかっちゃったわね！\012わたしの　こと\nだれにも　いわないで\011これ　あげる　から\011⋯　おねがいよ{PLAYER}は　おんなのこから\nひでんマシン０２を　もらった！ひでんマシン０２は　そらをとぶ！\nとても　べんりな\011すばらしい　わざ　なの！\012だいじに　つかってね！あなた　にもつ　いっぱいよ")
+JPGeneratedText:override("_Route16FlyHouseBrunetteGirlText", "あらま⋯！\nみつかっちゃったわね！\012わたしの　こと\nだれにも　いわないで\011これ　あげる　から\011⋯　おねがいよ")
 JPGeneratedText:override("_Route16FlyHouseFearowText", "オニドリル『キュイン！")
 JPGeneratedText:override("_Route16Gate1FGamblerText", "こんな　とこ　よく　きた！\nごくろうな　こっちゃ！")
 JPGeneratedText:override("_Route16Gate1FGuardCyclingRoadExplanationText", "サイクリング　ロードは\nうみを　いく　さかみち！\011かけおりると　きもち　いいよ！")
@@ -4739,13 +4739,13 @@ JPGeneratedText:override("_SafariZoneEatingText", "やせいのは\nエサを　
 JPGeneratedText:override("_SafariZoneGateSafariZoneWorker1CallYouOnThePAText", "\\012のこり　じかんが　なくなるか！\\nサファリボールが　なくなったら\\011メガホンで　しらせます！\\011では⋯⋯！　ぐっど　らっく！")
 JPGeneratedText:override("_SafariZoneGateSafariZoneWorker1GoodHaulComeAgainText", "ごくろうさま！\nポケモン　たくさん　とれたかな？\011また　あそびに　きてね！")
 JPGeneratedText:override("_SafariZoneGateSafariZoneWorker1GoodLuckText", "では　がんばって！")
-JPGeneratedText:override("_SafariZoneGateSafariZoneWorker1LeavingEarlyText", "もう　おわりに　する？サファリボールの\nのこりは　ぜんぶ　ひきとります！では　がんばって！")
+JPGeneratedText:override("_SafariZoneGateSafariZoneWorker1LeavingEarlyText", "もう　おわりに　する？")
 JPGeneratedText:override("_SafariZoneGateSafariZoneWorker1NotEnoughMoneyText", "あッ　おかねが　たりない！")
 JPGeneratedText:override("_SafariZoneGateSafariZoneWorker1PleaseComeAgainText", "そうか⋯⋯！　また　きて　ください")
 JPGeneratedText:override("_SafariZoneGateSafariZoneWorker1ReturnSafariBallsText", "サファリボールの\nのこりは　ぜんぶ　ひきとります！")
 JPGeneratedText:override("_SafariZoneGateSafariZoneWorker1Text", "サファリ　ゾーンに　ようこそ！")
 JPGeneratedText:override("_SafariZoneGateSafariZoneWorker1ThatllBe500PleaseText", "それでは⋯⋯！\\n５００円　いただきまーす！\\012ここでは　サファリ　せんようの\\nモンスターボールを　つかいます！\\011⋯⋯　これです！\\012{PLAYER}は　うけつけ　から\\nサファリボール　３０こ　もらった！")
-JPGeneratedText:override("_SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText", "この　ひろい　サファリで\nいろんな　ポケモン　とりほうだいの\011ゲームが　たった　５００円！\012さっそく　やりますか？それでは⋯！\n５００円　いただきまーす！\012ここでは　サファリ　せんようの\nモンスターボールを　つかいます！\011⋯　これです！\012{PLAYER}は　うけつけ　から\nサファリボール　３０こ　もらった！\012のこり　じかんが　なくなるか！\nサファリボールが　なくなったら\011メガホンで　しらせます！\011では⋯！　ぐっど　らっく！そうか⋯！　また　きて　くださいあッ　おかねが　たりない！")
+JPGeneratedText:override("_SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText", "この　ひろい　サファリで\nいろんな　ポケモン　とりほうだいの\011ゲームが　たった　５００円！\012さっそく　やりますか？")
 JPGeneratedText:override("_SafariZoneGateSafariZoneWorker2FirstTimeHereText", "こんちわ！\nサファリ　ゲームは　はじめて？")
 JPGeneratedText:override("_SafariZoneGateSafariZoneWorker2SafariZoneExplanationText", "サファリ　ゲームは\n４つの　ゾーンに　わかれてます！\nそれぞれに　めずらしい　ポケモンが\nせいそく　してますから\011せんようの　サファリボールで\011つかまえて　ください！\nただし　じかんが　なくなるか\nサファリボールを　ぜんぶ　なげたら\011ゲームは　おわり　だよ！")
 JPGeneratedText:override("_SafariZoneGateSafariZoneWorker2YoureARegularHereText", "おっと　しつれい！\nじょうれん　さん　だったね！")
@@ -5896,3 +5896,583 @@ do
 end
 
 print("[K89_POKEMON_BLUE_JP_HEN] standalone naming marks rendering active")
+
+
+-- K89 MR PSYCHIC TM29 JAPANESE RUNTIME FIX
+--
+-- Gen1Recomp story4.lua currently routes this interaction through a
+-- nonexistent _MrPsychicsHouseMrPsychicText key and hard-coded English
+-- strings for the item-received / bag-full branches. It also omits the
+-- original TM29 explanation sequence.
+--
+-- K89 already contains the canonical Japanese Blue text for all four
+-- original labels, so replace only this runtime handler and make it use
+-- those existing strings.
+
+do
+  local Story4 = require("data.scripts.story4")
+  local Bag = require("src.inventory.Bag")
+  local TextBox = require("src.render.TextBox")
+
+  local function k89MrPsychicPush(game, s, done)
+    game.stack:push(TextBox.new(game, s, done))
+  end
+
+  local function k89MrPsychicFill(s, subs)
+    subs = subs or {}
+
+    s = s:gsub("{PLAYER}", subs.player or "")
+    s = s:gsub("{RAM:[^}]*}", function()
+      return subs.ram or ""
+    end)
+
+    return s
+  end
+
+  local house = Story4.MR_PSYCHICS_HOUSE
+
+  if house and house.talk then
+    house.talk.TEXT_MRPSYCHICSHOUSE_MR_PSYCHIC =
+      function(game, ow, npc, done)
+
+        local t = game.data.text
+        local flags = game.save.flags
+        local itemId = "TM_PSYCHIC_M"
+        local itemName =
+          (game.data.items[itemId] and game.data.items[itemId].name)
+          or "TM29"
+
+        local explanation =
+          t._MrPsychicsHouseMrPsychicTM29ExplanationText
+          or "⋯　わかってるな？\nわざマシン２９は　サイコキネシス！\012⋯　うまく　いけば\nあいての　とくしゅ　のうりょくを\011さげられる　かも　しれない！"
+
+        -- Original behavior after TM29 has already been received:
+        -- Mr. Psychic repeats the TM29 explanation.
+        if flags.EVENT_GOT_TM29 then
+          k89MrPsychicPush(game, explanation, done)
+          return
+        end
+
+        local intro =
+          t._MrPsychicsHouseMrPsychicYouWantedThisText
+          or "⋯　⋯　わかった！\012これが　ほしい　のか！"
+
+        k89MrPsychicPush(game, intro, function()
+
+          if not Bag.add(game.save, itemId, 1) then
+            local noRoom =
+              t._MrPsychicsHouseMrPsychicTM29NoRoomText
+              or "もちものが　いっぱいだ！"
+
+            k89MrPsychicPush(game, noRoom, done)
+            return
+          end
+
+          flags.EVENT_GOT_TM29 = true
+
+          local received =
+            t._MrPsychicsHouseMrPsychicReceivedTM29Text
+            or "{PLAYER}は　エスパー　から\n{RAM:wStringBuffer}を　もらった！"
+
+          received = k89MrPsychicFill(received, {
+            player = game.save.player.name,
+            ram = itemName,
+          })
+
+          k89MrPsychicPush(game, received, function()
+            k89MrPsychicPush(game, explanation, done)
+          end)
+        end)
+      end
+  end
+end
+
+print("[K89_POKEMON_BLUE_JP_HEN] Mr. Psychic TM29 Japanese runtime fix active")
+
+
+-- K89 ROUTE 16 HM02 JAPANESE RUNTIME FIX
+--
+-- Gen1Recomp story4.lua requests Hm02 instead of canonical HM02 for
+-- the repeat explanation and hard-codes English for the received-item
+-- and bag-full branches. Restore the canonical Japanese Blue sequence.
+
+do
+  local Story4 = require("data.scripts.story4")
+  local Bag = require("src.inventory.Bag")
+  local TextBox = require("src.render.TextBox")
+
+  local function k89Route16Push(game, s, done)
+    game.stack:push(TextBox.new(game, s, done))
+  end
+
+  local function k89Route16FillPlayer(s, game)
+    return (s:gsub("{PLAYER}", game.save.player.name or ""))
+  end
+
+  local house = Story4.ROUTE_16_FLY_HOUSE
+
+  if house and house.talk then
+    house.talk.TEXT_ROUTE16FLYHOUSE_BRUNETTE_GIRL =
+      function(game, ow, npc, done)
+
+        local t = game.data.text
+        local flags = game.save.flags
+
+        local explanation =
+          t._Route16FlyHouseBrunetteGirlHM02ExplanationText
+          or "ひでんマシン０２は　そらをとぶ！"
+
+        if flags.EVENT_GOT_HM02 then
+          k89Route16Push(game, explanation, done)
+          return
+        end
+
+        local intro =
+          t._Route16FlyHouseBrunetteGirlText
+          or "あらま⋯！\nみつかっちゃったわね！"
+
+        k89Route16Push(game, intro, function()
+
+          if not Bag.add(game.save, "HM_FLY", 1) then
+            local noRoom =
+              t._Route16FlyHouseBrunetteGirlHM02NoRoomText
+              or "あなた　にもつ　いっぱいよ"
+
+            k89Route16Push(game, noRoom, done)
+            return
+          end
+
+          flags.EVENT_GOT_HM02 = true
+
+          local received =
+            t._Route16FlyHouseBrunetteGirlReceivedHM02Text
+            or "{PLAYER}は　おんなのこから\nひでんマシン０２を　もらった！"
+
+          received = k89Route16FillPlayer(received, game)
+
+          k89Route16Push(game, received, function()
+            k89Route16Push(game, explanation, done)
+          end)
+        end)
+      end
+  end
+end
+
+print("[K89_POKEMON_BLUE_JP_HEN] Route 16 HM02 Japanese runtime fix active")
+
+
+-- K89 ROCKET HIDEOUT B4F JAPANESE RUNTIME FIX
+--
+-- Gen1Recomp story3.lua requests a nonexistent generic label:
+-- _RocketHideoutB4FRocketAfterBattleText
+--
+-- Pokemon Blue uses:
+-- _RocketHideoutB4FRocket3AfterBattleText
+--
+-- Bridge the runtime path back to the canonical Japanese Blue text.
+
+do
+  local Story3 = require("data.scripts.story3")
+  local TextBox = require("src.render.TextBox")
+
+  local hideout = Story3.ROCKET_HIDEOUT_B4F
+
+  if hideout and hideout.talk then
+    local previous =
+      hideout.talk.TEXT_ROCKETHIDEOUTB4F_ROCKET
+
+    hideout.talk.TEXT_ROCKETHIDEOUTB4F_ROCKET =
+      function(game, ow, npc, done)
+
+        if not ow:trainerDefeated(npc) then
+          return previous(game, ow, npc, done)
+        end
+
+        local text =
+          game.data.text._RocketHideoutB4FRocket3AfterBattleText
+          or "しまった⋯！\nせっかく　かくして　おいた\011エレベータの　カギが⋯！"
+
+        game.stack:push(TextBox.new(game, text, done))
+      end
+  end
+end
+
+print("[K89_POKEMON_BLUE_JP_HEN] Rocket Hideout B4F Japanese runtime fix active")
+
+
+-- K89 MT MOON MAGIKARP SALESMAN JAPANESE RUNTIME FIX
+--
+-- Gen1Recomp requests _MtMoonPokecenterMagikarpSalesmanOfferText,
+-- which does not exist in canonical Pokemon Blue data.
+-- Blue uses _MtMoonPokecenterMagikarpSalesmanIGotADealText.
+
+do
+  local Story4 = require("data.scripts.story4")
+  local TextBox = require("src.render.TextBox")
+  local ChoiceBox = require("src.ui.ChoiceBox")
+
+  local area = Story4.MT_MOON_POKECENTER
+
+  if area and area.talk then
+    area.talk.TEXT_MTMOONPOKECENTER_MAGIKARP_SALESMAN =
+      function(game, ow, npc, done)
+
+        local t = game.data.text
+        local flags = game.save.flags
+
+        local function push(s, cb)
+          game.stack:push(TextBox.new(game, s, cb or done))
+        end
+
+        local function ask(s, cb)
+          push(s, function()
+            game.stack:push(ChoiceBox.new(game, cb))
+          end)
+        end
+
+        if flags.EVENT_BOUGHT_MAGIKARP then
+          push(
+            t._MtMoonPokecenterMagikarpSalesmanNoRefundsText
+            or "おじさん『そうそう　ポケモンの\nへんぴんは　おことわり　だからな"
+          )
+          return
+        end
+
+        ask(
+          t._MtMoonPokecenterMagikarpSalesmanIGotADealText
+          or "ひみつの　ポケモン　コイキングが\nなんと　たったの　５００円！",
+          function(yes)
+
+            if not yes then
+              push(
+                t._MtMoonPokecenterMagikarpSalesmanNoText
+                or "そお？　ざんねんだねえ⋯⋯"
+              )
+              return
+            end
+
+            if (game.save.money or 0) < 500 then
+              push(
+                t._MtMoonPokecenterMagikarpSalesmanNoMoneyText
+                or "おかね　たりない　みたいだねえ"
+              )
+              return
+            end
+
+            game.save.money = game.save.money - 500
+            flags.EVENT_BOUGHT_MAGIKARP = true
+
+            local Commands = require("src.script.Commands")
+            Commands.give_pokemon(
+              { save = game.save, game = game, overworld = ow },
+              "MAGIKARP",
+              5
+            )
+
+            done()
+          end
+        )
+      end
+  end
+end
+
+print("[K89_POKEMON_BLUE_JP_HEN] Mt. Moon Magikarp salesman Japanese runtime fix active")
+
+
+-- K89 SILPH CO 7F LAPRAS JAPANESE RUNTIME FIX
+--
+-- Gen1Recomp requests _SilphCo7FSilphWorkerM1ThankYouText,
+-- which is not a canonical Blue label, and also uses a hard-coded
+-- English "got LAPRAS" message.
+--
+-- Restore the canonical Japanese Blue interaction using:
+-- _SilphCo7FSilphWorkerM1HaveThisPokemonText
+-- _SilphCo7FSilphWorkerM1LaprasDescriptionText
+
+do
+  local Story4 = require("data.scripts.story4")
+  local TextBox = require("src.render.TextBox")
+
+  local area = Story4.SILPH_CO_7F
+
+  if area and area.talk then
+    area.talk.TEXT_SILPHCO7F_SILPH_WORKER_M1 =
+      function(game, ow, npc, done)
+
+        local t = game.data.text
+        local flags = game.save.flags
+
+        local function push(s, cb)
+          game.stack:push(TextBox.new(game, s, cb or done))
+        end
+
+        if flags.EVENT_GOT_LAPRAS then
+          push(
+            t._SilphCo7FSilphWorkerM1LaprasDescriptionText
+            or "こいつは　ラプラスと　いって\nとても　あたまのいい　ポケモンだ！"
+          )
+          return
+        end
+
+        push(
+          t._SilphCo7FSilphWorkerM1HaveThisPokemonText
+          or "そうだ！\nたすけに　きて　くれた　きみに\nこの　ポケモンを　わたそう！",
+          function()
+
+            flags.EVENT_GOT_LAPRAS = true
+
+            local Commands = require("src.script.Commands")
+            Commands.give_pokemon(
+              { save = game.save, game = game, overworld = ow },
+              "LAPRAS",
+              15
+            )
+
+            push(
+              t._SilphCo7FSilphWorkerM1LaprasDescriptionText
+              or "こいつは　ラプラスと　いって\nとても　あたまのいい　ポケモンだ！",
+              done
+            )
+          end
+        )
+      end
+  end
+end
+
+print("[K89_POKEMON_BLUE_JP_HEN] Silph Co. 7F Lapras Japanese runtime fix active")
+
+
+
+
+-- ================================================================
+-- K89 0.5.0 — CANONICAL TM/HM + MOVE LEARNING FIX
+-- ================================================================
+
+do
+  -- --------------------------------------------------------------
+  -- 1. Canonical Japanese TM/HM item names
+  --
+  -- Use the supported item registry.  This runs during the mod merge,
+  -- before BagMenu builds its cached list, so the bag sees the Japanese
+  -- name from the beginning.
+  -- --------------------------------------------------------------
+
+  local K89BaseItems = require("data.generated.items")
+
+  for id, item in pairs(K89BaseItems) do
+    if type(item) == "table"
+       and type(item.machine) == "table"
+       and tonumber(item.machine.number) then
+
+      local number = tonumber(item.machine.number)
+      local name
+
+      if item.machine.kind == "HM" then
+        name = string.format("ひでんマシン%02d", number)
+      elseif item.machine.kind == "TM" then
+        name = string.format("わざマシン%02d", number)
+      end
+
+      if name then
+        mod.content.items:patch(id, { name = name })
+      end
+    end
+  end
+
+  -- --------------------------------------------------------------
+  -- 2. Gen1Recomp's HM boot string bypasses Strings().
+  --
+  -- Actual 0.1.56 BagMenu.lua:
+  --
+  --   def.machine.kind == "HM"
+  --     and "Booted up an HM!"
+  --     or Strings("Booted up a TM!")
+  --
+  -- Intercept that literal at TextBox.new.
+  -- --------------------------------------------------------------
+
+  local K89TextBox = require("src.render.TextBox")
+  local K89OriginalTextBoxNew = K89TextBox.new
+
+  K89TextBox.new = function(game, message, ...)
+    if type(message) == "string" then
+      message = message:gsub(
+        "^Booted up an HM!",
+        "ひでんマシンを　きどうした！",
+        1
+      )
+
+      message = message:gsub(
+        "^Booted up a TM!",
+        "わざマシンを　きどうした！",
+        1
+      )
+    end
+
+    return K89OriginalTextBoxNew(game, message, ...)
+  end
+
+  -- --------------------------------------------------------------
+  -- 3. Canonical Japanese Blue move-learning flow.
+  --
+  -- Own MoveLearnMenu's methods directly instead of depending on
+  -- the engine-authored Strings catalog for this sequence.
+  -- --------------------------------------------------------------
+
+  local K89MoveLearnMenu = require("src.ui.MoveLearnMenu")
+
+  function K89MoveLearnMenu:enter()
+    local TextBox = require("src.render.TextBox")
+    local game = self.game
+    local mdef = game.data.moves[self.newMoveId]
+    local name = self:monName()
+
+    self.selecting = false
+
+    local message =
+      string.format(
+        "%sは　あたらしく\n%sを　おぼえたい⋯⋯！\f"
+        .. "しかし　%sは　わざを　４つ\n"
+        .. "おぼえるので　せいいっぱいだ！\f",
+        name, mdef.name, name
+      )
+      ..
+      string.format(
+        "%sの　かわりに\n"
+        .. "ほかの　わざを　わすれさせますか？",
+        mdef.name
+      )
+
+    game.stack:push(TextBox.new(game, message, nil, {
+      choice = function(yes)
+        if yes then
+          self.selecting = true
+        else
+          self:confirmAbandon()
+        end
+      end,
+    }))
+  end
+
+  function K89MoveLearnMenu:confirmAbandon()
+    local TextBox = require("src.render.TextBox")
+    local game = self.game
+    local mdef = game.data.moves[self.newMoveId]
+
+    self.selecting = false
+
+    game.stack:push(TextBox.new(
+      game,
+      string.format(
+        "それでは⋯⋯　%sを\n"
+        .. "おぼえるのを　あきらめますか？",
+        mdef.name
+      ),
+      nil,
+      {
+        choice = function(yes)
+          if yes then
+            self:finish(false)
+          else
+            self:enter()
+          end
+        end,
+      }
+    ))
+  end
+
+  function K89MoveLearnMenu:finish(learned)
+    local TextBox = require("src.render.TextBox")
+    local game = self.game
+    local name = self:monName()
+    local mdef = game.data.moves[self.newMoveId]
+
+    self.selecting = false
+    game.stack:pop()
+
+    local message
+
+    if learned then
+      message = string.format(
+        "１　２の　⋯⋯\f"
+        .. "　ポカン！\f"
+        .. "%sは　%sの\n"
+        .. "つかいかたを　きれいに　わすれた！\f"
+        .. "そして⋯⋯！\f"
+        .. "%sは　あたらしく\n"
+        .. "%sを　おぼえた！",
+        name, self.forgot, name, mdef.name
+      )
+    else
+      message = string.format(
+        "%sは　%sを\n"
+        .. "おぼえずに　おわった！",
+        name, mdef.name
+      )
+    end
+
+    game.stack:push(TextBox.new(game, message, function()
+      if self.onDone then
+        self.onDone(learned)
+      end
+    end))
+  end
+
+  -- --------------------------------------------------------------
+  -- 4. TM/HM party compatibility alignment.
+  --
+  -- Actual PartyMenu positions:
+  --   ABLE     x=120
+  --   NOT ABLE x=88
+  --
+  -- Japanese:
+  --   おぼえられる     6 glyphs
+  --   おぼえられない   7 glyphs
+  --
+  -- Keep おぼえられない where it already looks correct and place
+  -- おぼえられる one glyph (8 px) to its right: x=96.
+  -- --------------------------------------------------------------
+
+  local K89Font = require("src.render.Font")
+  local K89OriginalFontDraw = K89Font.draw
+
+  K89Font.draw = function(text, x, y, ...)
+    if text == "おぼえられる" and x == 120 then
+      x = 96
+    end
+
+    return K89OriginalFontDraw(text, x, y, ...)
+  end
+end
+
+print("[K89_POKEMON_BLUE_JP_HEN] 0.5.0 canonical TM/HM and move-learning fix active")
+
+
+-- ================================================================
+-- K89 0.5.0 — JAPANESE BLUE TITLE LOGO
+--
+-- Replaces Gen1Recomp's US Blue title logo with the authentic
+-- Japanese Pocket Monsters Ao title logo extracted from the JP ROM.
+-- ================================================================
+
+do
+  local K89TitleState = require("src.ui.TitleState")
+  local K89OriginalTitleNew = K89TitleState.new
+
+  K89TitleState.new = function(game, opts)
+    local self = K89OriginalTitleNew(game, opts)
+
+    local ok, image = pcall(
+      love.graphics.newImage,
+      mod.assets:path("assets/jp_blue_title_logo.png")
+    )
+
+    if ok and image then
+      self.logo = image
+    end
+
+    return self
+  end
+end
+
+print("[K89_POKEMON_BLUE_JP_HEN] Japanese Blue title logo active")
