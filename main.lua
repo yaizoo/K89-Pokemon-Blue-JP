@@ -2804,7 +2804,7 @@ for from, to in pairs(JP_EXTRA) do JPFullStrings:override(from, to) end
 -- ================================================================
 
 local JPGeneratedText = mod.content.text
-JPGeneratedText:override("SilphCo2FSilphWorkerFPleaseTakeThisText", "Eeek!\nNo! Stop! Help!\012Oh, you're not\nwith TEAM ROCKET.\011I thought...\011I'm sorry. Here,\011please take this!")
+JPGeneratedText:override("SilphCo2FSilphWorkerFPleaseTakeThisText", "きゃーっ！\nやめて！　たすけて！\012あら⋯　あなた\nロケットだんじゃ　ないのね\011ごめんなさい！\012これを　どうぞ！")
 JPGeneratedText:override("_AIBattleUseItemText", "{RAM:wTrainerName}は　{RAM:wEnemyMonNick}に\n{RAM:wNameBuffer}を　つかった")
 JPGeneratedText:override("_AIBattleWithdrawText", "{RAM:wTrainerName}は\n{RAM:wEnemyMonNick}をひっこめた！")
 JPGeneratedText:override("_AbandonLearningText", "それでは⋯　{RAM:wStringBuffer}を\nおぼえるのを　あきらめますか？")
@@ -6675,3 +6675,68 @@ do
 end
 
 print("[JAPANESE_BLUE] Japanese Town Map banner active")
+
+-- ================================================================
+-- K89 BLUE FINAL SHOW_TEXT LOCALIZATION GUARD
+--
+-- Catches hand-authored runtime text/substitution values that bypass
+-- the generated Japanese text catalog.
+-- ================================================================
+
+do
+  local Commands = require("src.script.Commands")
+
+  local K89_SHOW_TEXT_LITERAL_JP = {
+    ["That's PROF.OAK's\nlast Pokémon!"] =
+      "オーキドはかせの\nさいごの　ポケモンじゃ！",
+
+    ["You look tired!\nYou should take a\nquick nap!"] =
+      "つかれてる　みたいね！\nちょっと\nやすんで　いきなさい！",
+
+    ["Don't give up!"] =
+      "あきらめちゃ　だめよ！",
+
+    ["Thank you so\nmuch!"] =
+      "ほんとうに\nありがとう！",
+
+    ["Return to\nPALLET TOWN?"] =
+      "マサラ　タウンへ\nもどりますか？",
+
+    ["So you've come to\nshut down my\noperation?\fTEAM ROCKET's\nCHIEF won't go\ndown so easy!"] =
+      "おれの　しごとを\nつぶしに　きたのか？\fロケットだんの\nチーフを\nあまく　みるな！",
+
+    ["Gah! Even the\nCHIEF is no match\nfor you!\fTEAM ROCKET is\nfinished for\ngood!"] =
+      "ぐっ！　この\nチーフまで\nまけるとは！\fロケットだんも\nこれで\nおしまいだ！",
+
+    ["OAK: So you want\nto test your\nskills on me?\fVery well! Let\nme show you what\na real trainer\ncan do!"] =
+      "オーキド『わしと\nしょうぶが\nしたいのか？\fよかろう！\nほんものの\nトレーナーの　ちからを\nみせてやろう！",
+
+    ["OAK: Impressive!\nYou truly are a\nPOKéMON MASTER!"] =
+      "オーキド『みごとじゃ！\nおまえこそ\nポケモン　マスターじゃ！",
+  }
+
+  mod.content.commands:override("show_text",
+    function(ctx, textId, subs, extraOpts)
+
+      -- Hand-ported scripts sometimes pass an internal English species ID
+      -- directly as the RAM substitution rather than its display name.
+      if type(subs) == "table" and type(subs.RAM) == "string" then
+        local jpName = JP_POKEMON_NAMES[subs.RAM]
+        if jpName then
+          local copy = {}
+          for k, v in pairs(subs) do copy[k] = v end
+          copy.RAM = jpName
+          subs = copy
+        end
+      end
+
+      -- Literal strings never enter Data.text / JPGeneratedText.
+      if type(textId) == "string" then
+        textId = K89_SHOW_TEXT_LITERAL_JP[textId] or textId
+      end
+
+      return Commands.show_text(ctx, textId, subs, extraOpts)
+    end)
+
+  print("[JAPANESE_BLUE] final show_text localization guard active")
+end
