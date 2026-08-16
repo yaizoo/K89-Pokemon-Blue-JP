@@ -1,12 +1,12 @@
 {
-  "id": "K89_POKEMON_BLUE_JP",
-  "name": "K89 Pokemon Blue JP",
-  "version": "0.5.4",
+  "id": "K89_POKEMON_RED_BLUE_JP",
+  "name": "K89 Pokemon Red & Blue JP",
+  "version": "0.6.0",
   "api": 2,
   "entry": "main.lua",
   "profile": "content",
   "category": "GAMEPLAY",
-  "game_version": ">=0.1.56 <2.0.0",
+  "game_version": ">=0.1.89 <2.0.0",
   "priority": 200,
   "dependencies": [],
   "optional_dependencies": [],
@@ -15,5 +15,5 @@
     "engine_internals"
   ],
   "affects_link": false,
-  "description": "Japanese localization of Pokemon Blue for Gen1Recomp. Built from the audited Japanese Blue implementation and canonical Japanese dataset, including runtime localization and authentic title-screen assets."
+  "description": "Japanese localization of Pokemon Red and Blue for Gen1Recomp 0.1.89+. Recreates the original Japanese Gen 1 presentation with Japanese text, UI, title presentation, version-specific content, and optional authentic Japanese Red Pokemon sprites."
 }

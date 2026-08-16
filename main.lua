@@ -3,11 +3,1271 @@ local mod = ...
 local GameVersion = require("src.core.GameVersion")
 
 -- CRITICAL:
--- Mods are shared by Red/Blue, so do absolutely nothing unless
--- this process is running Pokemon Blue.
-if not GameVersion.isBlue() then
+-- Red and Blue share the same K89 localization core.  Yellow/Gold must not
+-- receive these overrides.  Gen1Recomp 0.1.89 has isBlue() but no isRed(),
+-- so Red is identified from the canonical active-version id.
+local K89_GAME_VERSION = GameVersion.get()
+local K89_IS_RED = K89_GAME_VERSION == "red"
+local K89_IS_BLUE = K89_GAME_VERSION == "blue"
+
+if not K89_IS_RED and not K89_IS_BLUE then
   return
 end
+
+
+-- ================================================================
+-- K89 — MOD OPTIONS AND JP RED GAMEPLAY SPRITES
+--
+-- Pokémon Red:
+--   Japanese localization is always active.
+--   JP RED SPRITES is available as a Red-only toggle and defaults to ON.
+--
+-- Pokémon Blue:
+--   Japanese localization is always active.
+--   K89 does not replace Blue gameplay Pokémon sprites.
+--
+-- The Red title screen is intentionally independent of the sprite setting
+-- and always uses its canonical Japanese Red title artwork.
+-- ================================================================
+
+if K89_IS_RED then
+  mod.options:define({
+    {
+      key = "jp_red_sprites",
+      label = "JP RED SPRITES",
+      type = "toggle",
+      default = true,
+    },
+  })
+end
+
+local K89_JP_RED_FRONT = {
+  ABRA = "abra.png",
+  AERODACTYL = "aerodactyl.png",
+  ALAKAZAM = "alakazam.png",
+  ARBOK = "arbok.png",
+  ARCANINE = "arcanine.png",
+  ARTICUNO = "articuno.png",
+  BEEDRILL = "beedrill.png",
+  BELLSPROUT = "bellsprout.png",
+  BLASTOISE = "blastoise.png",
+  BULBASAUR = "bulbasaur.png",
+  BUTTERFREE = "butterfree.png",
+  CATERPIE = "caterpie.png",
+  CHANSEY = "chansey.png",
+  CHARIZARD = "charizard.png",
+  CHARMANDER = "charmander.png",
+  CHARMELEON = "charmeleon.png",
+  CLEFABLE = "clefable.png",
+  CLEFAIRY = "clefairy.png",
+  CLOYSTER = "cloyster.png",
+  CUBONE = "cubone.png",
+  DEWGONG = "dewgong.png",
+  DIGLETT = "diglett.png",
+  DITTO = "ditto.png",
+  DODRIO = "dodrio.png",
+  DODUO = "doduo.png",
+  DRAGONAIR = "dragonair.png",
+  DRAGONITE = "dragonite.png",
+  DRATINI = "dratini.png",
+  DROWZEE = "drowzee.png",
+  DUGTRIO = "dugtrio.png",
+  EEVEE = "eevee.png",
+  EKANS = "ekans.png",
+  ELECTABUZZ = "electabuzz.png",
+  ELECTRODE = "electrode.png",
+  EXEGGCUTE = "exeggcute.png",
+  EXEGGUTOR = "exeggutor.png",
+  FARFETCHD = "farfetchd.png",
+  FEAROW = "fearow.png",
+  FLAREON = "flareon.png",
+  GASTLY = "gastly.png",
+  GENGAR = "gengar.png",
+  GEODUDE = "geodude.png",
+  GLOOM = "gloom.png",
+  GOLBAT = "golbat.png",
+  GOLDEEN = "goldeen.png",
+  GOLDUCK = "golduck.png",
+  GOLEM = "golem.png",
+  GRAVELER = "graveler.png",
+  GRIMER = "grimer.png",
+  GROWLITHE = "growlithe.png",
+  GYARADOS = "gyarados.png",
+  HAUNTER = "haunter.png",
+  HITMONCHAN = "hitmonchan.png",
+  HITMONLEE = "hitmonlee.png",
+  HORSEA = "horsea.png",
+  HYPNO = "hypno.png",
+  IVYSAUR = "ivysaur.png",
+  JIGGLYPUFF = "jigglypuff.png",
+  JOLTEON = "jolteon.png",
+  JYNX = "jynx.png",
+  KABUTO = "kabuto.png",
+  KABUTOPS = "kabutops.png",
+  KADABRA = "kadabra.png",
+  KAKUNA = "kakuna.png",
+  KANGASKHAN = "kangaskhan.png",
+  KINGLER = "kingler.png",
+  KOFFING = "koffing.png",
+  KRABBY = "krabby.png",
+  LAPRAS = "lapras.png",
+  LICKITUNG = "lickitung.png",
+  MACHAMP = "machamp.png",
+  MACHOKE = "machoke.png",
+  MACHOP = "machop.png",
+  MAGIKARP = "magikarp.png",
+  MAGMAR = "magmar.png",
+  MAGNEMITE = "magnemite.png",
+  MAGNETON = "magneton.png",
+  MANKEY = "mankey.png",
+  MAROWAK = "marowak.png",
+  MEOWTH = "meowth.png",
+  METAPOD = "metapod.png",
+  MEW = "mew.png",
+  MEWTWO = "mewtwo.png",
+  MOLTRES = "moltres.png",
+  ["MR_MIME"] = "mr.mime.png",
+  MUK = "muk.png",
+  NIDOKING = "nidoking.png",
+  NIDOQUEEN = "nidoqueen.png",
+  NIDORAN_F = "nidoranf.png",
+  NIDORAN_M = "nidoranm.png",
+  NIDORINA = "nidorina.png",
+  NIDORINO = "nidorino.png",
+  NINETALES = "ninetales.png",
+  ODDISH = "oddish.png",
+  OMANYTE = "omanyte.png",
+  OMASTAR = "omastar.png",
+  ONIX = "onix.png",
+  PARAS = "paras.png",
+  PARASECT = "parasect.png",
+  PERSIAN = "persian.png",
+  PIDGEOT = "pidgeot.png",
+  PIDGEOTTO = "pidgeotto.png",
+  PIDGEY = "pidgey.png",
+  PIKACHU = "pikachu.png",
+  PINSIR = "pinsir.png",
+  POLIWAG = "poliwag.png",
+  POLIWHIRL = "poliwhirl.png",
+  POLIWRATH = "poliwrath.png",
+  PONYTA = "ponyta.png",
+  PORYGON = "porygon.png",
+  PRIMEAPE = "primeape.png",
+  PSYDUCK = "psyduck.png",
+  RAICHU = "raichu.png",
+  RAPIDASH = "rapidash.png",
+  RATICATE = "raticate.png",
+  RATTATA = "rattata.png",
+  RHYDON = "rhydon.png",
+  RHYHORN = "rhyhorn.png",
+  SANDSHREW = "sandshrew.png",
+  SANDSLASH = "sandslash.png",
+  SCYTHER = "scyther.png",
+  SEADRA = "seadra.png",
+  SEAKING = "seaking.png",
+  SEEL = "seel.png",
+  SHELLDER = "shellder.png",
+  SLOWBRO = "slowbro.png",
+  SLOWPOKE = "slowpoke.png",
+  SNORLAX = "snorlax.png",
+  SPEAROW = "spearow.png",
+  SQUIRTLE = "squirtle.png",
+  STARMIE = "starmie.png",
+  STARYU = "staryu.png",
+  TANGELA = "tangela.png",
+  TAUROS = "tauros.png",
+  TENTACOOL = "tentacool.png",
+  TENTACRUEL = "tentacruel.png",
+  VAPOREON = "vaporeon.png",
+  VENOMOTH = "venomoth.png",
+  VENONAT = "venonat.png",
+  VENUSAUR = "venusaur.png",
+  VICTREEBEL = "victreebel.png",
+  VILEPLUME = "vileplume.png",
+  VOLTORB = "voltorb.png",
+  VULPIX = "vulpix.png",
+  WARTORTLE = "wartortle.png",
+  WEEDLE = "weedle.png",
+  WEEPINBELL = "weepinbell.png",
+  WEEZING = "weezing.png",
+  WIGGLYTUFF = "wigglytuff.png",
+  ZAPDOS = "zapdos.png",
+  ZUBAT = "zubat.png",
+}
+
+local K89_JP_RED_BACK = {
+  ABRA = "abrab.png",
+  AERODACTYL = "aerodactylb.png",
+  ALAKAZAM = "alakazamb.png",
+  ARBOK = "arbokb.png",
+  ARCANINE = "arcanineb.png",
+  ARTICUNO = "articunob.png",
+  BEEDRILL = "beedrillb.png",
+  BELLSPROUT = "bellsproutb.png",
+  BLASTOISE = "blastoiseb.png",
+  BULBASAUR = "bulbasaurb.png",
+  BUTTERFREE = "butterfreeb.png",
+  CATERPIE = "caterpieb.png",
+  CHANSEY = "chanseyb.png",
+  CHARIZARD = "charizardb.png",
+  CHARMANDER = "charmanderb.png",
+  CHARMELEON = "charmeleonb.png",
+  CLEFABLE = "clefableb.png",
+  CLEFAIRY = "clefairyb.png",
+  CLOYSTER = "cloysterb.png",
+  CUBONE = "cuboneb.png",
+  DEWGONG = "dewgongb.png",
+  DIGLETT = "diglettb.png",
+  DITTO = "dittob.png",
+  DODRIO = "dodriob.png",
+  DODUO = "doduob.png",
+  DRAGONAIR = "dragonairb.png",
+  DRAGONITE = "dragoniteb.png",
+  DRATINI = "dratinib.png",
+  DROWZEE = "drowzeeb.png",
+  DUGTRIO = "dugtriob.png",
+  EEVEE = "eeveeb.png",
+  EKANS = "ekansb.png",
+  ELECTABUZZ = "electabuzzb.png",
+  ELECTRODE = "electrodeb.png",
+  EXEGGCUTE = "exeggcuteb.png",
+  EXEGGUTOR = "exeggutorb.png",
+  FARFETCHD = "farfetchdb.png",
+  FEAROW = "fearowb.png",
+  FLAREON = "flareonb.png",
+  GASTLY = "gastlyb.png",
+  GENGAR = "gengarb.png",
+  GEODUDE = "geodudeb.png",
+  GLOOM = "gloomb.png",
+  GOLBAT = "golbatb.png",
+  GOLDEEN = "goldeenb.png",
+  GOLDUCK = "golduckb.png",
+  GOLEM = "golemb.png",
+  GRAVELER = "gravelerb.png",
+  GRIMER = "grimerb.png",
+  GROWLITHE = "growlitheb.png",
+  GYARADOS = "gyaradosb.png",
+  HAUNTER = "haunterb.png",
+  HITMONCHAN = "hitmonchanb.png",
+  HITMONLEE = "hitmonleeb.png",
+  HORSEA = "horseab.png",
+  HYPNO = "hypnob.png",
+  IVYSAUR = "ivysaurb.png",
+  JIGGLYPUFF = "jigglypuffb.png",
+  JOLTEON = "jolteonb.png",
+  JYNX = "jynxb.png",
+  KABUTO = "kabutob.png",
+  KABUTOPS = "kabutopsb.png",
+  KADABRA = "kadabrab.png",
+  KAKUNA = "kakunab.png",
+  KANGASKHAN = "kangaskhanb.png",
+  KINGLER = "kinglerb.png",
+  KOFFING = "koffingb.png",
+  KRABBY = "krabbyb.png",
+  LAPRAS = "laprasb.png",
+  LICKITUNG = "lickitungb.png",
+  MACHAMP = "machampb.png",
+  MACHOKE = "machokeb.png",
+  MACHOP = "machopb.png",
+  MAGIKARP = "magikarpb.png",
+  MAGMAR = "magmarb.png",
+  MAGNEMITE = "magnemiteb.png",
+  MAGNETON = "magnetonb.png",
+  MANKEY = "mankeyb.png",
+  MAROWAK = "marowakb.png",
+  MEOWTH = "meowthb.png",
+  METAPOD = "metapodb.png",
+  MEW = "mewb.png",
+  MEWTWO = "mewtwob.png",
+  MOLTRES = "moltresb.png",
+  ["MR_MIME"] = "mr.mimeb.png",
+  MUK = "mukb.png",
+  NIDOKING = "nidokingb.png",
+  NIDOQUEEN = "nidoqueenb.png",
+  NIDORAN_F = "nidoranfb.png",
+  NIDORAN_M = "nidoranmb.png",
+  NIDORINA = "nidorinab.png",
+  NIDORINO = "nidorinob.png",
+  NINETALES = "ninetalesb.png",
+  ODDISH = "oddishb.png",
+  OMANYTE = "omanyteb.png",
+  OMASTAR = "omastarb.png",
+  ONIX = "onixb.png",
+  PARAS = "parasb.png",
+  PARASECT = "parasectb.png",
+  PERSIAN = "persianb.png",
+  PIDGEOT = "pidgeotb.png",
+  PIDGEOTTO = "pidgeottob.png",
+  PIDGEY = "pidgeyb.png",
+  PIKACHU = "pikachub.png",
+  PINSIR = "pinsirb.png",
+  POLIWAG = "poliwagb.png",
+  POLIWHIRL = "poliwhirlb.png",
+  POLIWRATH = "poliwrathb.png",
+  PONYTA = "ponytab.png",
+  PORYGON = "porygonb.png",
+  PRIMEAPE = "primeapeb.png",
+  PSYDUCK = "psyduckb.png",
+  RAICHU = "raichub.png",
+  RAPIDASH = "rapidashb.png",
+  RATICATE = "raticateb.png",
+  RATTATA = "rattatab.png",
+  RHYDON = "rhydonb.png",
+  RHYHORN = "rhyhornb.png",
+  SANDSHREW = "sandshrewb.png",
+  SANDSLASH = "sandslashb.png",
+  SCYTHER = "scytherb.png",
+  SEADRA = "seadrab.png",
+  SEAKING = "seakingb.png",
+  SEEL = "seelb.png",
+  SHELLDER = "shellderb.png",
+  SLOWBRO = "slowbrob.png",
+  SLOWPOKE = "slowpokeb.png",
+  SNORLAX = "snorlaxb.png",
+  SPEAROW = "spearowb.png",
+  SQUIRTLE = "squirtleb.png",
+  STARMIE = "starmieb.png",
+  STARYU = "staryub.png",
+  TANGELA = "tangelab.png",
+  TAUROS = "taurosb.png",
+  TENTACOOL = "tentacoolb.png",
+  TENTACRUEL = "tentacruelb.png",
+  VAPOREON = "vaporeonb.png",
+  VENOMOTH = "venomothb.png",
+  VENONAT = "venonatb.png",
+  VENUSAUR = "venusaurb.png",
+  VICTREEBEL = "victreebelb.png",
+  VILEPLUME = "vileplumeb.png",
+  VOLTORB = "voltorbb.png",
+  VULPIX = "vulpixb.png",
+  WARTORTLE = "wartortleb.png",
+  WEEDLE = "weedleb.png",
+  WEEPINBELL = "weepinbellb.png",
+  WEEZING = "weezingb.png",
+  WIGGLYTUFF = "wigglytuffb.png",
+  ZAPDOS = "zapdosb.png",
+  ZUBAT = "zubatb.png",
+}
+
+-- Runtime Pokémon sprite seam provided by Gen1Recomp 0.1.89.
+--
+-- opts.kind == "title" is excluded deliberately because the Japanese Red
+-- title screen has its own permanently-authentic renderer.
+mod.hooks:wrap("pokemon.sprite", function(next, path, ctx)
+  -- Let downstream presentation mods make their front/back decision first.
+  local out = next(path, ctx)
+
+  if not ctx or ctx.kind == "title" then
+    return out
+  end
+
+  -- Gameplay sprite replacement belongs to Japanese Red only.
+  -- Blue must remain completely untouched.
+  if not K89_IS_RED then
+    return out
+  end
+
+  if not mod.options:get("jp_red_sprites") then
+    return out
+  end
+
+  local species = ctx.species
+  if not species then
+    return out
+  end
+
+  local def =
+    ctx.data
+    and ctx.data.pokemon
+    and ctx.data.pokemon[species]
+
+  -- Start with the engine's requested side, then infer the final side chosen
+  -- by downstream mods such as DRAMATIC_SHAPE from the path they returned.
+  local selectedSide = ctx.side
+
+  if def then
+    if out == def.spriteFront then
+      selectedSide = "front"
+    elseif out == def.spriteBack then
+      selectedSide = "back"
+    end
+  end
+
+  local file
+
+  if selectedSide == "front" then
+    file = K89_JP_RED_FRONT[species]
+    if file then
+      ctx.trueColor = false
+      return mod.assets:path(
+        "assets/jp_red/pokemon/front/" .. file
+      )
+    end
+  else
+    file = K89_JP_RED_BACK[species]
+    if file then
+      ctx.trueColor = false
+      return mod.assets:path(
+        "assets/jp_red/pokemon/back/" .. file
+      )
+    end
+  end
+
+  return out
+end, 1000)
+
+print("[K89_GEN1_JP] Japanese Red gameplay sprites forced for Red only")
+-- ================================================================
+-- K89 — JAPANESE RED/BLUE TITLE LOGO
+--
+-- Replaces Gen1Recomp's western Red/Blue title logo with the shared
+-- Japanese Pocket Monsters title mark used by the Japanese Gen-1 releases.
+-- ================================================================
+
+do
+  local K89TitleState = require("src.ui.TitleState")
+  local K89OriginalTitleNew = K89TitleState.new
+
+  K89TitleState.new = function(game, opts)
+    local self = K89OriginalTitleNew(game, opts)
+
+    local ok, image = pcall(
+      love.graphics.newImage,
+      mod.assets:path("assets/jp_gen1_title_logo.png")
+    )
+
+    if ok and image then
+      self.logo = image
+    end
+
+    return self
+  end
+end
+
+print("[K89_GEN1_JP] Japanese Red/Blue title logo active")
+
+
+
+-- ================================================================
+-- K89 — JAPANESE RED TITLE PALETTE
+--
+-- Gen1Recomp normally uses LOGO2 for the upper Red/Blue title-logo
+-- band.  The shared Japanese title mark should instead use the Red
+-- version palette when the active game is Red.  Blue is untouched.
+-- ================================================================
+
+do
+  local K89RedTitleGameVersion = require("src.core.GameVersion")
+  local K89RedTitlePaletteFX = require("src.render.PaletteFX")
+  local K89RedTitleState = require("src.ui.TitleState")
+
+  local K89OriginalSgbPalettes = K89RedTitleState.sgbPalettes
+
+  K89RedTitleState.sgbPalettes = function(self, game)
+    if K89RedTitleGameVersion.get() ~= "red" then
+      return K89OriginalSgbPalettes(self, game)
+    end
+
+    local redLogo = K89RedTitlePaletteFX.pal(game.data, "LOGO1")
+    local mewmon = K89RedTitlePaletteFX.pal(game.data, "MEWMON")
+
+    local zones = {
+      K89RedTitlePaletteFX.zone(redLogo, 0, 0, 19, 9),
+      K89RedTitlePaletteFX.zone(mewmon, 0, 10, 19, 17),
+    }
+
+    local top = game.stack and game.stack:top()
+    local box = top and top.titleUiBox
+
+    if box then
+      zones[#zones + 1] = K89RedTitlePaletteFX.zone(
+        K89RedTitlePaletteFX.GRAYS,
+        box[1], box[2], box[3], box[4]
+      )
+    end
+
+    return zones
+  end
+end
+
+print("[K89_GEN1_JP] Japanese Red title palette active")
+
+
+
+-- ================================================================
+-- K89 — AUTHENTIC JAPANESE RED/BLUE TITLE
+--
+-- Canonical Japanese cartridge title presentation:
+--
+-- RED:
+--   logo    = Japanese Red PAL_LOGO2
+--   ribbon  = Japanese Red PAL_LOGO1
+--   lower   = PAL_MEWMON
+--   footer  = ©1995 GAME FREAK inc.
+--
+-- BLUE:
+--   logo    = Japanese Blue PAL_LOGO2
+--   ribbon  = Japanese Blue PAL_LOGO1
+--   lower   = PAL_MEWMON
+--   footer  = ©1995.1996 GAME FREAK inc.
+--
+-- These palettes come from the Japanese Red v1.1 / Japanese Blue
+-- SGB palette tables rather than the international ROM palette data.
+-- ================================================================
+
+do
+  local GameVersion = require("src.core.GameVersion")
+  local PaletteFX = require("src.render.PaletteFX")
+  local TitleState = require("src.ui.TitleState")
+
+  -- Japanese Red SuperPalettes.
+  local RED_LOGO1 = {
+    {255,239,255},
+    {247,247,140},
+    {140,189,82},
+    {115,156,239},
+  }
+
+  local RED_LOGO2 = {
+    {255,239,255},
+    {247,247,140},
+    {140,189,82},
+    {173,0,33},
+  }
+
+  -- Japanese Blue SuperPalettes.
+  local BLUE_LOGO1 = {
+    {255,239,255},
+    {247,247,140},
+    {173,0,33},
+    {74,132,99},
+  }
+
+  local BLUE_LOGO2 = {
+    {255,239,255},
+    {247,247,140},
+    {173,0,33},
+    {115,156,239},
+  }
+
+  -- Shared Japanese Red/Blue PAL_MEWMON.
+  local JP_MEWMON = {
+    {255,239,255},
+    {247,181,140},
+    {132,115,156},
+    {25,16,16},
+  }
+
+  -- Override the earlier compatibility palette hook with the
+  -- exact Japanese title palettes for both supported versions.
+  TitleState.sgbPalettes = function(self, game)
+    local version = GameVersion.get()
+
+    local logo1
+    local logo2
+
+    if version == "red" then
+      logo1 = RED_LOGO1
+      logo2 = RED_LOGO2
+    elseif version == "blue" then
+      logo1 = BLUE_LOGO1
+      logo2 = BLUE_LOGO2
+    else
+      return nil
+    end
+
+    local zones = {
+      -- Japanese SGB BlkPacket_Titlescreen:
+      -- rows 0-7  = PAL_LOGO2
+      -- rows 8-9  = PAL_LOGO1
+      -- rows 10-17 = PAL_MEWMON
+      PaletteFX.zone(logo2, 0, 0, 19, 7),
+      PaletteFX.zone(logo1, 0, 8, 19, 9),
+      PaletteFX.zone(JP_MEWMON, 0, 10, 19, 17),
+    }
+
+    local top = game.stack and game.stack:top()
+    local box = top and top.titleUiBox
+
+    if box then
+      zones[#zones + 1] = PaletteFX.zone(
+        PaletteFX.GRAYS,
+        box[1], box[2], box[3], box[4]
+      )
+    end
+
+    return zones
+  end
+
+  -- TitleState's imported international copyright sheet already
+  -- contains the individual © / year tiles.  Change only the
+  -- sequence used on the title screen.
+  --
+  -- Existing international:
+  --   {0,1,2,1,3,1,4} = ©95.96.98
+  --
+  -- Japanese Red:
+  --   {0,1,2}         = ©95
+  --
+  -- Japanese Blue:
+  --   {0,1,2,1,3}     = ©95.96
+  local previousTitleNew = TitleState.new
+
+  TitleState.new = function(game, opts)
+    local self = previousTitleNew(game, opts)
+
+    local version = GameVersion.get()
+
+    if version == "red" then
+      self.copyPrefix = {0, 1, 2}
+    elseif version == "blue" then
+      self.copyPrefix = {0, 1, 2, 1, 3}
+    end
+
+    return self
+  end
+end
+
+print("[K89_GEN1_JP] Authentic Japanese Red/Blue title palettes and copyright active")
+
+
+
+
+
+
+-- ================================================================
+-- K89 — AUTHENTIC JAPANESE COPYRIGHT RENDERING
+--
+-- Replaces Gen1Recomp's international:
+--   ©'95.'96.'98
+--
+-- with the exact Japanese cartridge copyright graphics:
+--
+-- RED:
+--   ©1995 Nintendo
+--   ©1995 Creatures Inc.
+--   ©1995 GAME FREAK Inc.
+--
+-- BLUE:
+--   ©1995.1996 Nintendo
+--   ©1995.1996 Creatures Inc.
+--   ©1995.1996 GAME FREAK Inc.
+--
+-- Uses the original Japanese copyright tile strips and source-order
+-- tile sequences rather than reconstructing the years with Font.draw.
+-- ================================================================
+
+do
+  local GameVersion = require("src.core.GameVersion")
+  local TitleState = require("src.ui.TitleState")
+  local IntroMovie = require("src.ui.IntroMovie")
+
+  local copyrightCache = {}
+
+  local function copyrightData()
+    local version = GameVersion.get()
+
+    if version ~= "red" and version ~= "blue" then
+      return nil
+    end
+
+    if copyrightCache[version] then
+      return copyrightCache[version]
+    end
+
+    local file =
+      version == "red"
+      and "assets/jp_red_copyright.png"
+      or "assets/jp_blue_copyright.png"
+
+    local image = love.graphics.newImage(mod.assets:path(file))
+
+    if image.setFilter then
+      image:setFilter("nearest", "nearest")
+    end
+
+    local iw, ih = image:getDimensions()
+    local count = math.floor(iw / 8)
+
+    local quads = {}
+
+    for i = 0, count - 1 do
+      quads[i] = love.graphics.newQuad(
+        i * 8, 0,
+        8, 8,
+        iw, ih
+      )
+    end
+
+    copyrightCache[version] = {
+      image = image,
+      quads = quads,
+    }
+
+    return copyrightCache[version]
+  end
+
+  local function drawTiles(data, seq, x, y)
+    love.graphics.setColor(1, 1, 1, 1)
+
+    for _, tile in ipairs(seq) do
+      love.graphics.draw(
+        data.image,
+        data.quads[tile],
+        x, y
+      )
+      x = x + 8
+    end
+  end
+
+  -- --------------------------------------------------------------
+  -- Original Japanese copyright sequences.
+  --
+  -- Red copyright.png:
+  --   00-03 = ©1995
+  --   04-12 = GAME FREAK Inc.
+  --   13-18 = Nintendo
+  --   19-24 = Creatures Inc.
+  --
+  -- Blue adds:
+  --   25 = period separator used by ©1995.1996
+  -- --------------------------------------------------------------
+
+  local RED_PREFIX = {
+    0, 1, 2, 3
+  }
+
+  local BLUE_PREFIX = {
+    0, 1, 2, 3,
+    1, 2, 25
+  }
+
+  local NINTENDO = {
+    13, 14, 15, 16, 17, 18
+  }
+
+  local CREATURES = {
+    19, 20, 21, 22, 23, 24,
+    11, 12
+  }
+
+  local GAME_FREAK = {
+    4, 5, 6, 7, 8, 9, 10,
+    11, 12
+  }
+
+  local function joined(a, b)
+    local out = {}
+
+    for _, v in ipairs(a) do
+      out[#out + 1] = v
+    end
+
+    for _, v in ipairs(b) do
+      out[#out + 1] = v
+    end
+
+    return out
+  end
+
+  -- ==============================================================
+  -- BOOT COPYRIGHT CARD
+  -- ==============================================================
+
+  local originalIntroCopyright =
+    IntroMovie.drawCopyright
+
+  IntroMovie.drawCopyright = function(self)
+    local version = GameVersion.get()
+
+    if version ~= "red" and version ~= "blue" then
+      return originalIntroCopyright(self)
+    end
+
+    local data = copyrightData()
+
+    if not data then
+      return originalIntroCopyright(self)
+    end
+
+    local prefix =
+      version == "red"
+      and RED_PREFIX
+      or BLUE_PREFIX
+
+    drawTiles(
+      data,
+      joined(prefix, NINTENDO),
+      16, 56
+    )
+
+    drawTiles(
+      data,
+      joined(prefix, CREATURES),
+      16, 72
+    )
+
+    drawTiles(
+      data,
+      joined(prefix, GAME_FREAK),
+      16, 88
+    )
+
+    love.graphics.setColor(1, 1, 1, 1)
+  end
+
+  -- ==============================================================
+  -- TITLE SCREEN COPYRIGHT FOOTER
+  -- ==============================================================
+
+  local originalTitleCopyright =
+    TitleState.drawCopyright
+
+  TitleState.drawCopyright = function(self, y)
+    local version = GameVersion.get()
+
+    if version ~= "red" and version ~= "blue" then
+      return originalTitleCopyright(self, y)
+    end
+
+    local data = copyrightData()
+
+    if not data then
+      return originalTitleCopyright(self, y)
+    end
+
+    local prefix
+    local x
+
+    if version == "red" then
+      -- Original Japanese Red:
+      -- hlcoord 3,17
+      prefix = RED_PREFIX
+      x = 24
+    else
+      -- Original Japanese Blue:
+      -- hlcoord 2,17
+      prefix = BLUE_PREFIX
+      x = 16
+    end
+
+    drawTiles(
+      data,
+      joined(prefix, GAME_FREAK),
+      x, y
+    )
+
+    love.graphics.setColor(1, 1, 1, 1)
+  end
+end
+
+print("[K89_GEN1_JP] Authentic Japanese Red/Blue copyright rendering active")
+
+
+
+
+-- ================================================================
+-- K89 — AUTHENTIC JAPANESE RED TITLE SPRITES
+--
+-- Japanese Red title behavior:
+--
+--   Satoshi:
+--     canonical Japanese Red title sprite
+--     screen position x=40, y=80
+--
+--   Pokémon:
+--     canonical Japanese Red front sprites
+--     original Red TitleMons cycle
+--     7x7 title box begins at x=72, y=80
+--
+-- These assets are title-locked.  They do NOT change gameplay sprites.
+-- A separate gameplay sprite selector can reuse the same jp_red asset
+-- library later.
+-- ================================================================
+
+do
+  local GameVersion = require("src.core.GameVersion")
+  local TitleState = require("src.ui.TitleState")
+
+  local RED_TITLE_MONS = {
+    "CHARMANDER",
+    "SQUIRTLE",
+    "BULBASAUR",
+    "WEEDLE",
+    "NIDORAN_M",
+    "SCYTHER",
+    "PIKACHU",
+    "CLEFAIRY",
+    "RHYDON",
+    "ABRA",
+    "GASTLY",
+    "DITTO",
+    "PIDGEOTTO",
+    "ONIX",
+    "PONYTA",
+    "MAGIKARP",
+  }
+
+  local RED_TITLE_FILES = {
+    CHARMANDER = "charmander.png",
+    SQUIRTLE   = "squirtle.png",
+    BULBASAUR  = "bulbasaur.png",
+    WEEDLE     = "weedle.png",
+    NIDORAN_M  = "nidoranm.png",
+    SCYTHER    = "scyther.png",
+    PIKACHU    = "pikachu.png",
+    CLEFAIRY   = "clefairy.png",
+    RHYDON     = "rhydon.png",
+    ABRA       = "abra.png",
+    GASTLY     = "gastly.png",
+    DITTO      = "ditto.png",
+    PIDGEOTTO  = "pidgeotto.png",
+    ONIX       = "onix.png",
+    PONYTA     = "ponyta.png",
+    MAGIKARP   = "magikarp.png",
+  }
+
+  local function loadK89Image(relative)
+    local path = mod.assets:path(relative)
+
+    local ok, image = pcall(
+      love.graphics.newImage,
+      path
+    )
+
+    if not ok then
+      return nil, path
+    end
+
+    if image and image.setFilter then
+      image:setFilter("nearest", "nearest")
+    end
+
+    return image, path
+  end
+
+  -- --------------------------------------------------------------
+  -- TITLE STATE INITIALIZATION
+  -- --------------------------------------------------------------
+
+  local previousNew = TitleState.new
+
+  TitleState.new = function(game, opts)
+    local self = previousNew(game, opts)
+
+    if GameVersion.get() ~= "red" then
+      return self
+    end
+
+    -- Lock Red to the canonical Japanese Red TitleMons list.
+    self.cycleSpecies = RED_TITLE_MONS
+    self.cycleIndex = 1
+    self.sprites = {}
+
+    -- Canonical Japanese Red Satoshi title artwork.
+    local player, playerPath =
+      loadK89Image("assets/jp_red/title/player.png")
+
+    if player then
+      self.player = player
+      self.playerPath = playerPath
+
+      local pw, ph = player:getDimensions()
+
+      -- Same decomposition used by Gen1Recomp's native title player:
+      -- the Poké Ball occupies the first tile of row 3 and moves
+      -- independently during starter transitions.
+      self.ballQuad =
+        love.graphics.newQuad(
+          0, 16,
+          8, 8,
+          pw, ph
+        )
+
+      self.playerQuads = {
+        {
+          love.graphics.newQuad(
+            0, 0,
+            pw, 16,
+            pw, ph
+          ),
+          0, 0
+        },
+
+        {
+          love.graphics.newQuad(
+            8, 16,
+            pw - 8, 8,
+            pw, ph
+          ),
+          8, 16
+        },
+
+        {
+          love.graphics.newQuad(
+            0, 24,
+            pw, ph - 24,
+            pw, ph
+          ),
+          0, 24
+        },
+      }
+    end
+
+    return self
+  end
+
+  -- --------------------------------------------------------------
+  -- TITLE POKÉMON ASSET RESOLUTION
+  -- --------------------------------------------------------------
+
+  local previousCurrentSprite =
+    TitleState.currentSprite
+
+  TitleState.currentSprite = function(self)
+    if GameVersion.get() ~= "red" then
+      return previousCurrentSprite(self)
+    end
+
+    local species =
+      self.cycleSpecies[self.cycleIndex]
+
+    local cached =
+      self.sprites[species]
+
+    if cached == nil then
+      local file =
+        RED_TITLE_FILES[species]
+
+      if not file then
+        return previousCurrentSprite(self)
+      end
+
+      local image =
+        loadK89Image(
+          "assets/jp_red/pokemon/front/" .. file
+        )
+
+      cached =
+        image and {
+          image = image,
+          trueColor = false,
+        } or false
+
+      self.sprites[species] = cached
+    end
+
+    return
+      cached and cached.image or nil,
+      false
+  end
+
+  -- --------------------------------------------------------------
+  -- AUTHENTIC JAPANESE RED LAYOUT
+  --
+  -- Original source:
+  --
+  --   Pokémon:
+  --     hlcoord 9,10
+  --     → 72px,80px 7x7 tile box
+  --
+  --   Satoshi OAM:
+  --     raw OAM X=$30, Y=$60
+  --     → screen x=40, y=80
+  --
+  -- Gen1Recomp normally uses a Pokémon box beginning at x=40 and
+  -- Satoshi at x=82.  Shift only the Red title Pokémon +32px,
+  -- suppress the normal player draw, then draw canonical Satoshi
+  -- at his original position.
+  -- --------------------------------------------------------------
+
+  local previousDraw =
+    TitleState.draw
+
+  TitleState.draw = function(self)
+    if GameVersion.get() ~= "red" then
+      return previousDraw(self)
+    end
+
+    local savedPlayer =
+      self.player
+
+    local savedPlayerQuads =
+      self.playerQuads
+
+    local savedBallQuad =
+      self.ballQuad
+
+    local savedMonOffset =
+      self.monOffset or 0
+
+    -- Move Gen1Recomp's existing 56px Pokémon box:
+    --
+    -- x=40 → x=72
+    --
+    -- while retaining its original sprite centering and animation.
+    self.monOffset =
+      savedMonOffset + 32
+
+    -- Prevent the stock player-on-the-right render.
+    self.player = nil
+    self.playerQuads = nil
+    self.ballQuad = nil
+
+    previousDraw(self)
+
+    -- Restore state immediately after the normal title render.
+    self.player =
+      savedPlayer
+
+    self.playerQuads =
+      savedPlayerQuads
+
+    self.ballQuad =
+      savedBallQuad
+
+    self.monOffset =
+      savedMonOffset
+
+    -- Japanese Red player is OAM and therefore draws over the
+    -- background Pokémon.
+    if savedPlayer then
+      if savedPlayerQuads then
+        for _, part in ipairs(savedPlayerQuads) do
+          love.graphics.draw(
+            savedPlayer,
+            part[1],
+            40 + part[2],
+            80 + part[3]
+          )
+        end
+
+        if savedBallQuad then
+          love.graphics.draw(
+            savedPlayer,
+            savedBallQuad,
+            40,
+            self.ballY
+          )
+        end
+
+      else
+        love.graphics.draw(
+          savedPlayer,
+          40,
+          80
+        )
+      end
+    end
+
+    love.graphics.setColor(1, 1, 1, 1)
+  end
+end
+
+print("[K89_GEN1_JP] Authentic Japanese Red title sprite/layout override active")
+
+
+
+
+-- ================================================================
+-- K89 — FINAL AUTHENTIC JAPANESE RED PLAYER COMPOSITOR
+--
+-- Japanese Red's title Satoshi is one intact OAM sprite composition.
+-- It does NOT use Gen1Recomp's international playerQuads/ballQuad
+-- decomposition.
+--
+-- The original 2-bit PNG also represents Game Boy sprite color 0 as
+-- white. On hardware that color is transparent for OAM. Convert those
+-- white pixels to alpha=0 before drawing so the Pokémon remains visible
+-- behind Satoshi exactly as on the cartridge.
+-- ================================================================
+
+do
+  local GameVersion = require("src.core.GameVersion")
+  local TitleState = require("src.ui.TitleState")
+
+  local previousDraw = TitleState.draw
+  local transparentRedPlayer = nil
+
+  local function loadTransparentRedPlayer()
+    if transparentRedPlayer then
+      return transparentRedPlayer
+    end
+
+    local path =
+      mod.assets:path("assets/jp_red/title/player.png")
+
+    local ok, data = pcall(
+      love.image.newImageData,
+      path
+    )
+
+    if not ok or not data then
+      return nil
+    end
+
+    data:mapPixel(function(x, y, r, g, b, a)
+      -- Game Boy OBJ color 0 = transparent.
+      -- The extracted source PNG represents it as white.
+      if r > 0.95 and g > 0.95 and b > 0.95 then
+        return r, g, b, 0
+      end
+
+      return r, g, b, a
+    end)
+
+    local image = love.graphics.newImage(data)
+
+    if image.setFilter then
+      image:setFilter("nearest", "nearest")
+    end
+
+    transparentRedPlayer = image
+    return image
+  end
+
+  TitleState.draw = function(self)
+    if GameVersion.get() ~= "red" then
+      return previousDraw(self)
+    end
+
+    -- The earlier Red-title compatibility wrapper still knows how to
+    -- position and animate the canonical Japanese Red Pokémon. Suppress
+    -- its player completely while it renders everything else.
+    local savedPlayer = self.player
+    local savedPlayerQuads = self.playerQuads
+    local savedBallQuad = self.ballQuad
+
+    self.player = nil
+    self.playerQuads = nil
+    self.ballQuad = nil
+
+    previousDraw(self)
+
+    self.player = savedPlayer
+    self.playerQuads = savedPlayerQuads
+    self.ballQuad = savedBallQuad
+
+    -- Original Japanese Red OAM position:
+    --
+    -- raw OAM X=$30, Y=$60
+    -- visible-screen coordinates x=40, y=80.
+    --
+    -- Draw the whole sprite once. No separate Poké Ball.
+    local player = loadTransparentRedPlayer()
+
+    if player then
+      love.graphics.setColor(1, 1, 1, 1)
+      love.graphics.draw(player, 40, 80)
+    end
+
+    love.graphics.setColor(1, 1, 1, 1)
+  end
+end
+
+print("[K89_GEN1_JP] Final authentic Japanese Red player compositor active")
+
+
 
 -- ================================================================
 -- BUNDLED JAPANESE FONT PAGE
@@ -1606,15 +2866,6 @@ JPSafariFont.draw = function(value, x, y, ...)
     -- Move two 8px character cells right: x56 -> x72.
     if y == 112 and x == 56 and value:match("^%d+$") then
       x = 80
-    end
-
-    if y == 112 then
-      local f = io.open("/tmp/k89_safari_exact.log", "a")
-      if f then
-        f:write(string.format("value=%q x=%s y=%s\\n",
-          tostring(value), tostring(x), tostring(y)))
-        f:close()
-      end
     end
 
     -- Capture Gen1Recomp's standalone BALLx count, but do not draw it.
@@ -6508,36 +7759,6 @@ print("[K89_POKEMON_BLUE_JP_HEN] 0.5.0 canonical TM/HM and move-learning fix act
 
 
 -- ================================================================
--- K89 0.5.0 — JAPANESE BLUE TITLE LOGO
---
--- Replaces Gen1Recomp's US Blue title logo with the authentic
--- Japanese Pocket Monsters Ao title logo extracted from the JP ROM.
--- ================================================================
-
-do
-  local K89TitleState = require("src.ui.TitleState")
-  local K89OriginalTitleNew = K89TitleState.new
-
-  K89TitleState.new = function(game, opts)
-    local self = K89OriginalTitleNew(game, opts)
-
-    local ok, image = pcall(
-      love.graphics.newImage,
-      mod.assets:path("assets/jp_blue_title_logo.png")
-    )
-
-    if ok and image then
-      self.logo = image
-    end
-
-    return self
-  end
-end
-
-print("[K89_POKEMON_BLUE_JP_HEN] Japanese Blue title logo active")
-
-
--- ================================================================
 -- K89 JAPANESE BLUE — TOWN MAP BANNER
 -- ================================================================
 --
@@ -6640,24 +7861,6 @@ do
   end
 
   K89TownMap.bannerText = function(self, loc)
-    -- TEMP DEBUG: log exact runtime names for remaining Town Map mismatches.
-    if loc and loc.name then
-      local upper = tostring(loc.name):upper()
-      if upper:find("MOON", 1, true)
-         or upper:find("ROUTE", 1, true) then
-        local f = io.open("/tmp/k89_townmap_remaining.log", "a")
-        if f then
-          f:write(string.format(
-            'name=%q fly=%s nest=%s mode=%s\n',
-            tostring(loc.name),
-            tostring(self.fly),
-            tostring(self.nestSpecies),
-            tostring(self.mode)
-          ))
-          f:close()
-        end
-      end
-    end
 
     -- Bag Town Map only.
     -- Leave Fly and Pokédex AREA behavior untouched.
@@ -6740,3 +7943,496 @@ do
 
   print("[JAPANESE_BLUE] final show_text localization guard active")
 end
+
+
+-- ================================================================
+-- K89 0.5.5 — GEN1RECOMP 0.1.89 AUDITED PLAYER-FACING COVERAGE PASS
+--
+-- 0.1.89 moved much more engine-authored text behind Strings(), but a
+-- handful of Blue/shared paths still build or draw literals directly.
+-- Keep cartridge text on the normal Japanese catalog whenever possible,
+-- then catch only the audited bypasses at their final display boundaries.
+-- ================================================================
+
+do
+  local K89_055_STRINGS = mod.content.strings
+  local K89_055_TEXT = mod.content.text
+
+  -- Missing generated-text keys referenced by 0.1.89 fallbacks.
+  -- These are registered at the source so the English fallback is never
+  -- selected when the Japanese Blue mod is active.
+
+  -- Exact source-key translations for 0.1.89 Strings() paths.  Original
+  -- Japanese Blue wording already present elsewhere in this mod is reused
+  -- where an equivalent ROM text entry exists.
+  local K89_055_EXACT = {
+    -- Battle / move UI
+    ["OLD MAN"] = "おじいさん",
+    ["WHICH TECHNIQUE?"] = "どのわざを？",
+    ["What will"] = "",
+    [" do?"] = "は　どうする？",
+    ["Which move?"] = "どの　わざ？",
+    ["%s used\n%s!"] = "%sは\n%sを　つかった！",
+    ["{PLAYER} got\n%s!"] = "{PLAYER}は\n%sを　てにいれた！",
+    ["%s received\nthe %s!"] = "%sは\n%sを　もらった！",
+    ["%s received\n%s!"] = "%sは\n%sを　もらった！",
+
+    -- Player PC / storage
+    ["How many?"] = "いくつ？",
+    ["PARTY (DEPOSIT)"] = "てもち　（あずける）",
+    ["The party is full!"] = "てもちが　いっぱいです！",
+
+    -- Pokédex / trainer / trade UI
+    ["SEEN %3d  OWN %3d"] = "みつけた %3d　つかまえた %3d",
+    ["NAME/%s"] = "なまえ/%s",
+    ["OT/%s"] = "おや/%s",
+    ["<Diploma>"] = "しょうじょう",
+    ["Player"] = "しゅじんこう",
+    ["Congrats! This"] = "おめでとう！",
+    ["diploma certifies"] = "ポケモンずかんを",
+    ["that you have"] = "かんせいしたことを",
+    ["completed your"] = "ここに　しょうめいします",
+    ["POKéDEX."] = "ポケモンずかん。",
+
+    -- Fly / map UI
+    ["FLY TO?"] = "どこへ　とぶ？",
+    ["PALLET TOWN"] = "マサラ",
+    ["VIRIDIAN CITY"] = "トキワ",
+    ["PEWTER CITY"] = "ニビ",
+    ["CERULEAN CITY"] = "ハナダ",
+    ["LAVENDER TOWN"] = "シオン",
+    ["VERMILION CITY"] = "クチバ",
+    ["CELADON CITY"] = "タマムシ",
+    ["FUCHSIA CITY"] = "セキチク",
+    ["CINNABAR ISLAND"] = "グレン",
+    ["INDIGO PLATEAU"] = "セキエイ",
+    ["SAFFRON CITY"] = "ヤマブキ",
+
+    -- Museum clerk: exact Japanese Blue text already carried by the ROM
+    -- catalog, repeated here only because the 0.1.89 helper bypasses it.
+    ["Take your time,\nand enjoy it all!"] = "ごゆっくり　どうぞ！",
+    ["It's ¥50 for a\nchild's ticket.\fWould you like to\ncome in?"] =
+      "はいはい　こどもは　\nけんがくりょう　５０えん　です\fけんがく　しますか？",
+    ["Right, ¥50!\nThank you!"] = "はい　たしかに\n５０えん　いただき　ました！",
+    ["Come again!"] = "また　きてね",
+
+    -- Elevator / Game Corner / vending machine
+    ["WHICH FLOOR?"] = "なんかいへ　いきますか？",
+    ["PRIZES (COINS)"] = "けいひん（コイン）",
+    ["VENDING MACHINE"] = "じどう　はんばいき",
+    ["Not enough\nmoney."] = "おかねが　たりないぞ！",
+    ["You have no room\nfor it!"] = "これ　いじょう　もてない！",
+    ["NO THANKS"] = "やめる",
+
+    -- Celadon hidden-event help / TM notebook
+    ["STOP READING"] = "よむのを　やめる",
+    ["HOW TO LINK"] = "つうしんの　しかた",
+    ["COLOSSEUM"] = "コロシアム",
+    ["TRADE CENTER"] = "こうかんセンター",
+    ["It's a pamphlet\non TMs.\f...\fThere are 50 TMs\nin all.\fThere are also 5\nHMs that can be\vused repeatedly.\fSILPH CO."] =
+      "わざマシンについての\nパンフレットだ！\f⋯⋯\fわざマシンは　ぜんぶで\n５０しゅるい。\fひでんマシンは　５しゅるい。\nなんどでも　つかうことが　できる。\fシルフ　カンパニー",
+
+    -- Viridian hidden-event / school helper literals
+    ["CATERPIE has no\npoison, but\vWEEDLE does.\fWatch out for its\nPOISON STING!"] =
+      "キャタピーは　どくを\nもってないけど\vビードルは　もってるよ！\fどくばりには\nきを　つけて！",
+    ["Oh, OK then!"] = "あっ　そう！",
+    [" SLP"] = " ねむり",
+    [" PSN"] = " どく",
+    [" PAR"] = " まひ",
+    [" BRN"] = " やけど",
+    [" FRZ"] = " こおり",
+
+    -- Story helpers that do not resolve through generated Data.text.
+    ["You'll have to\nbeat the master\nfirst!"] = "しはんに　かってからに　しろ！",
+    ["You need a\nBICYCLE for the\nCycling Road!"] =
+      "サイクリング　ロード　には\nじてんしゃで　いって　ください！",
+    ["You need a\nBICYCLE for\nCYCLING ROAD!"] =
+      "サイクリング　ロード　には\nじてんしゃで　いって　ください！",
+    ["PA: You're out of\nSAFARI BALLs!"] =
+      "アナウンス『ピンポーン！\nサファリ　ボールを\nぜんぶ　なげました！",
+
+    -- Defensive fallbacks. Normal Blue resolves the canonical generated
+    -- Japanese text before these are reached, but keeping the fallback
+    -- itself Japanese prevents an English leak if upstream data is absent.
+    ["FOE"] = "あいて",
+    ["Gyaoo!"] = "ギヤーオ！",
+    ["I like shorts!\nThey're comfy and\neasy to wear!"] =
+      "たんぱんが　すきなんだ！\nかるくて　うごきやすいからな！",
+    ["Go right ahead!"] = "この　さきへ　すすみなさい！",
+    ["Oh! That is the\n{RAM}!"] =
+      "むむッ⋯！\nそれは　{RAM:wNameBuffer}　バッジ！",
+    ["You don't have the\n{RAM} yet!"] =
+      "きみは　まだ\n{RAM:wNameBuffer}　バッジを　もって　いない",
+    ["You don't have the\nBOULDERBADGE yet!"] =
+      "きみは　まだ\nグレー　バッジを　もって　いない",
+
+    -- Gen1Recomp-only application UI that is reachable while Blue is
+    -- running.  These are not cartridge strings, so use concise native UI.
+    ["UI LAYOUT"] = "UIレイアウト",
+    ["DYNAMIC"] = "じどう",
+    ["CENTERED"] = "ちゅうおう",
+    ["ORIENTATION"] = "むき",
+    ["FAITHFUL RATIO"] = "げんさくひりつ",
+    ["OVERWORLD SPEED"] = "フィールドそくど",
+    ["BATTLE SPEED"] = "せんとうそくど",
+    ["MENU SPEED"] = "メニューそくど",
+    ["DATE FORMAT"] = "ひづけひょうじ",
+    ["TIME FORMAT"] = "じこくひょうじ",
+    ["VIBRATION"] = "しんどう",
+    ["UP"] = "うえ",
+    ["DOWN"] = "した",
+    ["LEFT"] = "ひだり",
+    ["RIGHT"] = "みぎ",
+    ["SELECT:CLEAR ROW\nSTART:RESET ALL"] = "SELECT:ぎょうをけす\nSTART:ぜんぶもどす",
+    ["RESET ALL BINDINGS?"] = "そうさせっていを\nぜんぶもどしますか？",
+    ["PRESS A BUTTON"] = "ボタンを　おしてください",
+    ["RELEASE TO SET"] = "はなすと　けってい",
+    ["ESC/2ND CANCELS"] = "ESC/2NDで　やめる",
+    ["LOAD REPORT"] = "ロード　レポート",
+    ["A:CONTINUE"] = "A:つづける",
+    ["%s to box %d"] = "%sを　ボックス%dへ",
+    ["Save recovered from"] = "セーブデータを　ふっきゅう",
+    ["Moved to LOST box:"] = "LOSTボックスへ　いどう:",
+    ["Items removed:"] = "どうぐを　さくじょ:",
+    ["Location reset:"] = "ばしょを　リセット:",
+    ["Restored:"] = "ふっきゅう:",
+  }
+
+  for source, japanese in pairs(K89_055_EXACT) do
+    K89_055_STRINGS:override(source, japanese)
+  end
+
+  local K89_055_STAT = {
+    HP = "たいりょく",
+    ATTACK = "こうげきりょく",
+    DEFENSE = "ぼうぎょりょく",
+    SPEED = "すばやさ",
+    SPECIAL = "とくしゅのうりょく",
+    ACCURACY = "めいちゅうりつ",
+    EVASION = "かいひりつ",
+  }
+
+  local function K89_055_localize(value)
+    if type(value) ~= "string" then return value end
+
+    local exact = K89_055_EXACT[value]
+    if exact then return exact end
+
+    -- Trainer Card fields are assembled after Strings() and therefore need
+    -- a final draw-boundary conversion.  Trade ID and PP deliberately stay
+    -- in their canonical Japanese Gen-1 Latin notation (IDNo. / PP).
+    local playerName = value:match("^NAME/(.+)$")
+    if playerName then return "なまえ/" .. playerName end
+
+    local money = value:match("^MONEY/¥(%d+)$")
+    if money then return "おこづかい/¥" .. money end
+
+    local playTime = value:match("^TIME/(.+)$")
+    if playTime then return "プレイじかん/" .. playTime end
+
+    -- Game Corner prize footer is built with string.format instead of
+    -- Strings("COINS %4d").
+    local coins = value:match("^COINS%s+(%d+)$")
+    if coins then return "コイン " .. coins .. "まい" end
+
+    -- Raw formatted item/stat helper messages.
+    local mon, stat = value:match("^(.-)'s ([A-Z]+)\nrose!$")
+    if mon and K89_055_STAT[stat] then
+      return mon .. "の　" .. K89_055_STAT[stat] .. "が\nあがった！"
+    end
+
+    local who, used = value:match("^(.-) used\n(.+)!$")
+    if who and used then
+      return who .. "は\n" .. used .. "を　つかった！"
+    end
+
+    local gotWho, gotWhat = value:match("^(.-) got\n(.+)!$")
+    if gotWho and gotWhat then
+      gotWhat = JP_POKEMON_NAMES[gotWhat] or gotWhat
+      return gotWho .. "は\n" .. gotWhat .. "を　もらった！"
+    end
+
+    local receiveWho, receiveWhat = value:match("^(.-) received\nthe (.+)!$")
+    if receiveWho and receiveWhat then
+      return receiveWho .. "は\n" .. receiveWhat .. "を　もらった！"
+    end
+
+    receiveWho, receiveWhat = value:match("^(.-) received\n(.+)!$")
+    if receiveWho and receiveWhat then
+      return receiveWho .. "は\n" .. receiveWhat .. "を　もらった！"
+    end
+
+    local popped = value:match("^(.+)\npopped out!$")
+    if popped then return popped .. "が　でてきた！" end
+
+    local afflictedWho, afflictedStatus = value:match("^(.-)\nwas afflicted\nby (.-)!$")
+    if afflictedWho and afflictedStatus then
+      local jpStatus = K89_055_STAT[afflictedStatus] or afflictedStatus
+      return afflictedWho .. "は\n" .. jpStatus .. "に　なった！"
+    end
+
+    -- Quarantine/load report has several directly assembled lines that never
+    -- pass through Strings(). Keep identifiers intact while translating the
+    -- explanatory shell around them.
+    local backup = value:match("^ the %.(.+) backup copy$")
+    if backup then return " ." .. backup .. " バックアップ" end
+
+    local mods, detail = value:match("^This save was made with (%d+) mods?; (.+)$")
+    if mods and detail then
+      return "このセーブは " .. mods .. " MOD でさくせい（" .. detail .. "）"
+    end
+
+    -- Quarantine/load report: convert internal species IDs when a recovered
+    -- Pokémon is listed.  This screen is recomp-only but should not expose
+    -- English names inside the Japanese build.
+    local species, box = value:match("^([A-Z0-9_]+)を　ボックス(%d+)へ$")
+    if species and box then
+      return (JP_POKEMON_NAMES[species] or species) .. "を　ボックス" .. box .. "へ"
+    end
+
+    return value
+  end
+
+  -- Final TextBox boundary for helper/script literals.
+  local K89_055_TextBox = require("src.render.TextBox")
+  local K89_055_PreviousTextBoxNew = K89_055_TextBox.new
+  K89_055_TextBox.new = function(game, message, ...)
+    return K89_055_PreviousTextBoxNew(game, K89_055_localize(message), ...)
+  end
+
+  -- Final cartridge-font boundary for raw HUD/status/Trainer Card lines.
+  local K89_055_Font = require("src.render.Font")
+  local K89_055_PreviousFontDraw = K89_055_Font.draw
+  K89_055_Font.draw = function(value, x, y, ...)
+    return K89_055_PreviousFontDraw(K89_055_localize(value), x, y, ...)
+  end
+
+  -- Fly and a few 0.1.89 menus build labels directly from internal IDs.
+  local K89_055_ListMenu = require("src.ui.ListMenu")
+  local K89_055_PreviousListMenuNew = K89_055_ListMenu.new
+  K89_055_ListMenu.new = function(game, title, items, opts)
+    title = K89_055_localize(title)
+    if type(items) == "table" then
+      for _, item in ipairs(items) do
+        if type(item) == "table" and type(item.label) == "string" then
+          item.label = K89_055_localize(item.label)
+        end
+      end
+    end
+    if type(opts) == "table" and type(opts.footer) == "string" then
+      opts.footer = K89_055_localize(opts.footer)
+    end
+    return K89_055_PreviousListMenuNew(game, title, items, opts)
+  end
+
+  local K89_055_Menu = require("src.ui.Menu")
+  local K89_055_PreviousMenuNew = K89_055_Menu.new
+  K89_055_Menu.new = function(game, items, opts)
+    if type(items) == "table" then
+      for _, item in ipairs(items) do
+        if type(item) == "table" and type(item.label) == "string" then
+          item.label = K89_055_localize(item.label)
+        end
+      end
+    end
+    return K89_055_PreviousMenuNew(game, items, opts)
+  end
+
+  -- 0.1.89 stores battle status abbreviations as record metadata, bypassing
+  -- the Strings registry entirely.
+  local okStatus, K89_055_Status = pcall(require, "src.battle.Status")
+  if okStatus and K89_055_Status and type(K89_055_Status.RECORDS) == "table" then
+    local labels = {
+      SLP = "ねむり",
+      FRZ = "こおり",
+      PSN = "どく",
+      BRN = "やけど",
+      PAR = "まひ",
+    }
+    for id, japanese in pairs(labels) do
+      local record = K89_055_Status.RECORDS[id]
+      if type(record) == "table" then
+        record.label = japanese
+        record.hudLabel = japanese
+      end
+    end
+  end
+
+  print("[K89_POKEMON_BLUE_JP] 0.5.5 Gen1Recomp 0.1.89 audited localization coverage pass active")
+end
+
+-- ================================================================
+-- K89 RED/BLUE VERSION DELTA
+--
+-- Japanese Red and Japanese Blue share the localization/runtime layer above.
+-- The audited source differential found only two ordinary generated-text
+-- wording differences plus version-specific Pokédex prose.  Apply the Red
+-- delta last so the shared Blue-derived catalog can remain the common base.
+-- ================================================================
+
+if K89_IS_RED then
+  local text = mod.content.text
+
+  -- Japanese Red-specific in-game trade wording.
+  text:override("_AfterTrade2Text", "こうかんした　{RAM:wInGameTradeReceiveMonName}\nつよくなったかい？")
+  text:override("_WrongMon3Text", "⋯　これ\n{RAM:wInGameTradeGiveMonName}じゃ　ないわー\012てに　いれたら\nぜったい　とりかえてよねっ！")
+
+  -- Japanese Red Pokédex text.
+  text:override("_AbraDexEntry", "ねんりき１にち　１８じかんは　ねている。\nねむってる　あいだでも　さまざまな\nちょうのうりょくを　つかう。")
+  text:override("_AerodactylDexEntry", "かせきこはくに　のこされた　きょうりゅうの\nいでんしから　ふっかつさせた。\nたかいこえで　なきながら　とぶ。")
+  text:override("_AlakazamDexEntry", "ねんりきちからわざを　あまり　このまず\nちょうのうりょくを　じざいに\nあやつって　あいてを　たおす。")
+  text:override("_ArbokDexEntry", "コブラおなかの　もようが　こわいかおに\nみえる。よわいてきは　そのもようを\nみただけで　にげだしてしまう。")
+  text:override("_ArcanineDexEntry", "でんせつちゅうごくの　いいつたえにある\nでんせつの　ポケモン。ものすごい\nスピードで　はしるという。")
+  text:override("_ArticunoDexEntry", "れいとうでんせつの　とりポケモンの　ひとつ。\nながい　しっぽが　たなびいて\nとんでいく　すがたは　すばらしい。")
+  text:override("_BeedrillDexEntry", "どくばちしゅうだんで　あらわれることもある。\nもうスピードで　とびまわり\nおしりの　どくばりで　さしまくる。")
+  text:override("_BellsproutDexEntry", "フラワーひとの　かおのような　ツボミから\nでんせつの　マンドラゴラの　いっしゅ\nではないかと　ささやかれている。")
+  text:override("_BlastoiseDexEntry", "こうらからだが　おもたく　のしかかって\nあいてを　きぜつさせる。\nピンチの　ときは　カラに　かくれる。")
+  text:override("_BulbasaurDexEntry", "たねうまれたときから　せなかに\nしょくぶつの　タネが　あって\nすこしづつ　おおきく　そだつ。")
+  text:override("_ButterfreeDexEntry", "ちょうちょハネは　みずを　はじく　りんぷんに\nまもられている。あめの　ひでも\nそらを　とぶことが　できる。")
+  text:override("_CaterpieDexEntry", "いもむしみどりの　ひふに　おおわれている。\nだっぴして　せいちょうすると\nいとを　かけて　サナギに　かわる。")
+  text:override("_ChanseyDexEntry", "たまご１にちに　いくつか　たまごを　うむ。\nその　たまごは　えいよう　まんてんで\nものすごく　おいしい　らしい。")
+  text:override("_CharizardDexEntry", "かえんちじょう　１４００メートル　まで\nハネを　つかって　とぶことができる。\nこうねつの　ほのおを　はく。")
+  text:override("_CharmanderDexEntry", "とかげうまれたときから　しっぽに　ほのおが\nともっている。ほのおが　きえたとき\nその　いのちは　おわって　しまう。")
+  text:override("_CharmeleonDexEntry", "かえんシッポを　ふりまわして　あいてを\nなぎたおし　するどい　ツメで\nズタズタに　ひきさいてしまう。")
+  text:override("_ClefableDexEntry", "ようせいみみが　よくて　１キロ　はなれた\nところで　おとした　はりのおとを\nみごとに　ききわけられる。")
+  text:override("_ClefairyDexEntry", "ようせいあいくるしい　すがたから\nペットように　にんきが　ある。\nただし　なかなか　みつけられない。")
+  text:override("_CloysterDexEntry", "２まいがいカラが　ひじょうに　かたく\nナパームだんでも　こわせない。\nこうげきするときだけ　ひらく。")
+  text:override("_CuboneDexEntry", "こどくしにわかれた　ははおやの　ほねを\nあたまに　かぶっている。さびしいとき\nおおごえで　なくという。")
+  text:override("_DewgongDexEntry", "あしかぜんしんが　まっしろな　けで\nおおわれている。さむさに　つよく\nむしろ　さむいほど　げんきになる。")
+  text:override("_DiglettDexEntry", "もぐらちちゅうの　あさいところを　いどう。\nほりすすんだあとは　じめんが\nもりあがっているので　すぐわかる。")
+  text:override("_DittoDexEntry", "へんしんからだの　さいぼうの　つくりを\nじぶんで　くみかえて　ほかの\nせいめいたいに　へんしんする。")
+  text:override("_DodrioDexEntry", "みつごどりめったに　みつからない　ちんしゅ。\n３つの　あたまは　よろこび　かなしみ\nいかりの　かんじょうを　あらわす。")
+  text:override("_DoduoDexEntry", "ふたごどりとつぜんへんいで　みつかった\nふたつの　あたまを　もつ　ポケモン。\nじそく　１００キロで　はしる。")
+  text:override("_DragonairDexEntry", "ドラゴンうみや　みずうみなどに　すむという。\nはねをもたないが　たまに　そらを\nとぶ　すがたが　もくげきされる。")
+  text:override("_DragoniteDexEntry", "ドラゴンおおきな　たいかくで　そらを　とぶ。\nちきゅうを　やく１６じかんで\n１しゅう　してしまう。")
+  text:override("_DratiniDexEntry", "ドラゴンこどもでも　しんちょうは\n２メートル　いじょう。だっぴを\nくりかえして　おおきくなる。")
+  text:override("_DrowzeeDexEntry", "さいみんユメを　たべるという　でんせつの　\nいきもの　バクの　しそん。\nさいみんじゅつが　とくいだ。")
+  text:override("_DugtrioDexEntry", "もぐらちちゅうを　ほりすすんで\nあいてが　ゆだんしているところを\nべつの　ばしょから　こうげきする。")
+  text:override("_EeveeDexEntry", "しんか３しゅるいの　ポケモンに\nしんかする　かのうせいを　もつ\nめずらしい　ポケモンだ。")
+  text:override("_EkansDexEntry", "へびくさちなどに　おおく　せいそくする。\nしたを　チロチロ　させて　まわりの\nきけんを　かんじとる。")
+  text:override("_ElectabuzzDexEntry", "でんげきつよい　でんきが　だいこうぶつで\nおおきな　はつでんしょ　などに　\nしばしば　あらわれる。")
+  text:override("_ElectrodeDexEntry", "ボールすこしの　しげきに　はんのうして\nばくはつする。バクダンボールという\nあだなで　こわがられて　いる。")
+  text:override("_ExeggcuteDexEntry", "たまごなにかの　たまごの　ようだが\nじつは　しょくぶつの　タネにちかい\nいきもの　であることが　わかった。")
+  text:override("_ExeggutorDexEntry", "やしのみあるく　ねったいうりん　とよばれる。\nみの　ひとつひとつに　かおがあって\nそれぞれ　いしを　もっている。")
+  text:override("_FarfetchdDexEntry", "かるがもじぶんの　すを　つくるための\nしょくぶつの　クキを　いっぽん\nいつも　もって　あるいている。")
+  text:override("_FearowDexEntry", "くちばしおおきな　つばさで　おおぞらを\nとびつづけることが　できる。\n１にち　おりなくても　だいじょうぶ。")
+  text:override("_FlareonDexEntry", "ほのおたいないに　ほのおぶくろが　あり\nふかく　いきを　すいこんだあと\n１７００ど　の　ひを　はく。")
+  text:override("_GastlyDexEntry", "ガスじょううすい　ガスじょうの　せいめいたい。\nガスに　つつまれると\nインドぞうも　２びょうで　たおれる。")
+  text:override("_GengarDexEntry", "シャドーやまで　そうなんしたとき\nいのちをうばいに　くらやみから\nあらわれることが　あるという。")
+  text:override("_GeodudeDexEntry", "がんせきまるくて　もちやすいので　つかんで\nあいてに　なげて　ぶつける\nイシツブテ　がっせんが　できる。")
+  text:override("_GloomDexEntry", "ざっそうめしべが　はなつ　とてつもなく\nくさい　においは　２キロさきまで\nとどき　きを　うしなわせる。")
+  text:override("_GolbatDexEntry", "こうもりするどいキバで　かみついて\nいちどに　３００シーシーの\nちを　すいとってしまう。")
+  text:override("_GoldeenDexEntry", "きんぎょせビレ　むなビレが　きんにくのように\nはったつしており　すいちゅうを\n５ノットの　はやさで　およぐ。")
+  text:override("_GolduckDexEntry", "あひるてのひらが　みずかきに　なっていて\nおよぐのが　とくい。みずうみなどで\nゆうがな　すがたが　みかけられる。")
+  text:override("_GolemDexEntry", "メガトンがんばんのような　かたい　カラで\nおおわれている。１ねんに　１かい\nだっぴして　おおきくなる。")
+  text:override("_GravelerDexEntry", "がんせきやまのなかの　さかみちを\nあるいていると　ゴローンが\nころがって　くることが　ある。")
+  text:override("_GrimerDexEntry", "ヘドロつきからの　エックスせんをあびた\nヘドロが　ベトベターにへんかした。\nきたないモノが　だいこうぶつ。")
+  text:override("_GrowlitheDexEntry", "こいぬひとなつこく　せいじつな　せいかく。\nてきには　ほえて　かみつき\nおいはらおう　とする。")
+  text:override("_GyaradosDexEntry", "きょうあくひじょうに　きょうぼうな　せいかく。\nくちからだす　はかいこうせんは\nすべてのものを　やきつくす。")
+  text:override("_HaunterDexEntry", "ガスじょうくらやみで　だれもいないのに\nみられているような　きがしたら\nそこに　ゴーストが　いるのだ。")
+  text:override("_HitmonchanDexEntry", "パンチプロボクサーの　たましいが\nのりうつっている。パンチのスピードは\nしんかんせんよりも　はやい。")
+  text:override("_HitmonleeDexEntry", "キックあしが　じゆうに　のびちぢみして\nとおく　はなれている　ばあいでも\nあいてを　けりあげることが　できる。")
+  text:override("_HorseaDexEntry", "ドラゴンぜんまいのように　クルクルまかれた\nしっぽで　からだの　バランスをとる。\nくちから　スミを　はくことが　ある。")
+  text:override("_HypnoDexEntry", "さいみんふりこのようなものを　もちあるく。\nこどもに　さいみんじゅつを　かけて\nどこかへ　つれさるじけんが　あった。")
+  text:override("_IvysaurDexEntry", "たねつぼみが　せなかに　ついていて\nようぶんを　きゅうしゅうしていくと\nおおきな　はなが　さくという。")
+  text:override("_JigglypuffDexEntry", "ふうせんまるくて　おおきい　ひとみで\nさそいこみ　ここちよい　うたを\nうたい　あいてを　ねむらせる。")
+  text:override("_JolteonDexEntry", "かみなりおこったり　おどろいたりすると\nぜんしんの　けが　はりの　ように\nさかだって　あいてを　つらぬく。")
+  text:override("_JynxDexEntry", "ひとがたにんげんのような　ことばを　はなすが\nまだ　なにをいっているか　ふめいで\nげんざい　けんきゅうされている。")
+  text:override("_KabutoDexEntry", "こうらこだい　せいぶつの　かせきから\nさいせいしたポケモン。\nかたい　カラで　みを　まもっている。")
+  text:override("_KabutopsDexEntry", "こうらすいちゅうを　じゆうに　およぎ\nするどい　カマで　えものを　とらえ\nたいえきを　すいとってしまう。")
+  text:override("_KadabraDexEntry", "ねんりきあるあさのこと。　ちょうのうりょく\nしょうねんが　ベットから　めざめると\nユンゲラーに　へんしん　していた。")
+  text:override("_KakunaDexEntry", "さなぎおとなの　からだを　つくるための\nいちじてきな　じょうたい。\nじぶんでは　ほとんど　うごけない。")
+  text:override("_KangaskhanDexEntry", "おやこメスは　おなかの　ふくろに\nこどもを　いれて　そだてる。\nれんぞくパンチ　こうげきが　とくい。")
+  text:override("_KinglerDexEntry", "はさみかたい　ハサミは　１まんばりきの\nパワーを　もっているが\nおおきすぎて　うごきが　にぶい。")
+  text:override("_KoffingDexEntry", "どくガスうすい　バルーンじょうの　からだに\nもうどくの　ガスが　つまっている。\nちかくにくると　くさい。")
+  text:override("_KrabbyDexEntry", "さわがにうみの　ちかくで　みつかる。\nおおきな　ハサミは　もぎとっても\nあとから　また　はえてくる。")
+  text:override("_LaprasDexEntry", "のりものひとのことばを　りかいする　たかい\nちのうをもつ。うみの　うえを\nひとをのせて　すすむのが　すき。")
+  text:override("_LickitungDexEntry", "なめまわししたが　しんちょうの　２ばいもある。\nエサをとったり　こうげきをしたりと\nまるで　てのように　うごかせる。")
+  text:override("_MachampDexEntry", "かいりきはったつした　４ほんの　うでは\n２びょうかんに　１０００ぱつの\nパンチを　くりだすことができる。")
+  text:override("_MachokeDexEntry", "かいりきつかれることのない　きょうじんな\nにくたいを　もつ。おもい　にもつの\nうんぱんなどの　しごとを　てつだう。")
+  text:override("_MachopDexEntry", "かいりきぜんしんが　きんにくに　なっており\nこどもほどの　おおきさしかないのに\nおとな　１００にんを　なげとばせる。")
+  text:override("_MagikarpDexEntry", "さかなちからも　スピードも　ほとんどダメ。\nせかいで　いちばん　よわくて\nなさけない　ポケモンだ。")
+  text:override("_MagmarDexEntry", "ひふきかざんの　かこうちかくで\nみつかった。くちから　ほのおをはく。\nたいおんは　１２００ど　もある。")
+  text:override("_MagnemiteDexEntry", "じしゃくくうちゅうに　ういたまま　いどうして\nさゆうの　ユニットから\nでんじはなどを　ほうしゃする。")
+  text:override("_MagnetonDexEntry", "じしゃくふくすうの　コイルが　れんけつして\nきょうりょくな　じりょくせんと\nこうでんあつを　ほうしゃする。")
+  text:override("_MankeyDexEntry", "ぶたざるみのこなしが　かるく　きょうぼうな\nせいかく。おこって　あばれると\nてが　つけられなくなる。")
+  text:override("_MarowakDexEntry", "ほねずきからだも　ちいさく　もともと　\nよわかった。ホネを　つかうようになり\nせいかくが　きょうぼうか　した。")
+  text:override("_MeowthDexEntry", "ばけねこひるまは　ねてばかりいる。\nよるになると　めが　かがやき\nなわばりを　あるきまわる。")
+  text:override("_MetapodDexEntry", "さなぎかたい　カラに　つつまれているが\nなかみは　やわらかいので\nつよい　こうげきには　たえられない。")
+  text:override("_MewDexEntry", "しんしゅみなみアメリカに　せいそくする\nぜつめつしたはずの　#。\nちのうがたかく　なんでも　おぼえる。")
+  text:override("_MewtwoDexEntry", "いでんしけんきゅうの　ために　いでんしを\nどんどん　くみかえていった　けっか\nきょうぼうな　ポケモンに　なった。")
+  text:override("_MoltresDexEntry", "かえんでんせつの　とりポケモンの　ひとつ。\nオレンジいろの　もえるようなハネが\nみるものを　あっとうする。")
+  text:override("_MrMimeDexEntry", "バリアーひとを　しんじこませるのが　うまい。\nパントマイムで　つくったカベが\nほんとうに　あらわれるという。")
+  text:override("_MukDexEntry", "ヘドロふだんは　じめんに　まざっていて\nわからない。からだに　さわると\nもうどくに　おかされる。")
+  text:override("_NidokingDexEntry", "ドリルいしのように　かたい　ひふと\nながく　のびた　ツノが　とくちょう。\nツノには　どくもあるので　ちゅうい。")
+  text:override("_NidoqueenDexEntry", "ドリルかたくて　はりのような　ウロコが\nからだを　おおっている。\nこうふんすると　はりが　さかだつ。")
+  text:override("_NidoranFDexEntry", "どくばりちいさくても　どくばりの　いりょくは\nきょうれつで　ちゅういが　ひつよう。\nメスのほうが　つのが　ちいさい。")
+  text:override("_NidoranMDexEntry", "どくばりみみが　おおきく　とおくの　おとを\nきくとき　はばたくように　うごく。\nおこると　どくばりを　だす。")
+  text:override("_NidorinaDexEntry", "どくばりメスなので　せいかくは　おんこう。\nくちから　だす　ちょうおんぱは\nあいてを　まどわす　ちからがある。")
+  text:override("_NidorinoDexEntry", "どくばりおこりやすい　せいかく。\nはったつした　ツノを　ふりまわして\nダイヤモンドも　くしざしに　する。")
+  text:override("_NinetalesDexEntry", "きつねおうごんに　かがやく　たいもうと\n９ほんの　ながい　しっぽを　もつ。\n１０００ねんは　いきると　いわれる。")
+  text:override("_OddishDexEntry", "ざっそうべつめい　アルキメンデス。\nよるに　なると　２ほんの　ねっこで\n３００メートルも　あるくという。")
+  text:override("_OmanyteDexEntry", "うずまきおおむかし　うみに　すんでいた\nこだい　ポケモン。１０ぽんの　あしを\nくねらせて　およぐ。")
+  text:override("_OmastarDexEntry", "うずまきしょくしゅが　てあしの　ように\nはったつ　してる。しがみつくと\nどうじに　かみついて　くる。")
+  text:override("_OnixDexEntry", "いわへびふだんは　つちのなかに　すんでいる。\nちちゅうを　じそく　８０キロで\nほりながら　エサを　さがす。")
+  text:override("_ParasDexEntry", "きのこむしの　せなかに　はえているのは\nとうちゅうかそう　という　キノコ。\nそだつと　キノコも　おおきくなる。")
+  text:override("_ParasectDexEntry", "きのこキノコの　カサから　どくほうしを\nまきちらす。しかし　ちゅうごくでは\nこのほうしを　かんぽうやくに　する。")
+  text:override("_PersianDexEntry", "シャムネコきしょうが　はげしく　しっぽを\nまっすぐ　たてたら　よう　ちゅうい。\nとびかかって　かみつく　まえぶれだ。")
+  text:override("_PidgeotDexEntry", "とりうつくしい　ハネを　ひろげて\nあいてを　いかくする。\nマッハ２で　そらを　とびまわる。")
+  text:override("_PidgeottoDexEntry", "とりあしの　ツメが　はったつしている。\nエサの　タマタマを　つかんで\n１００キロさきの　す　まで　はこぶ。")
+  text:override("_PidgeyDexEntry", "ことりたたかいは　すきではない。\nくさむらの　なかに　かくれて\nちいさい　むしなどを　とらえる。")
+  text:override("_PikachuDexEntry", "ねずみほっぺたの　りょうがわに\nちいさい　でんきぶくろを　もつ。\nピンチのときに　ほうでんする。")
+  text:override("_PinsirDexEntry", "くわがた２ほんの　ながい　ツノは　パワフル。\nいちど　はさまれて　しまったら\nちぎれるまで　はなさない。")
+  text:override("_PoliwagDexEntry", "おたまスベスベした　くろいひふは　うすく\nしめっている。ないぞうの　いちぶが\nすけて　うずまきじょうに　みえる。")
+  text:override("_PoliwhirlDexEntry", "おたま２ほんの　あしは　はったつしており　\nちじょうで　くらせるのに　なぜか\nすいちゅう　せいかつが　すき。")
+  text:override("_PoliwrathDexEntry", "おたまおよぎが　とくいで　クロールや\nバタフライが　できる。オリンピックの\nせんしゅも　かなわないほど　はやい。")
+  text:override("_PonytaDexEntry", "ひのうまからだが　かるく　あしの　ちからが\nものすごい。１かいの　ジャンプで\nとうきょうタワーも　とびこえる。")
+  text:override("_PorygonDexEntry", "シージーさいこうの　かがくりょくを　つかい\nついに　じんこうの　ポケモンを\nつくることに　せいこうした。")
+  text:override("_PrimeapeDexEntry", "ぶたざるいつも　もうれつに　おこっており\nにげても　にげても\nどこまでも　おいかけてくる。")
+  text:override("_PsyduckDexEntry", "あひるいつも　ずつうに　なやまされている。\nこの　ずつうが　はげしくなると\nふしぎな　ちからを　つかいはじめる。")
+  text:override("_RaichuDexEntry", "ねずみでんげきは　１０まんボルトに\nたっすることもあり　ヘタにさわると\nインドぞうでも　きぜつする。")
+  text:override("_RapidashDexEntry", "ひのうまじそくは　さいこう　２４０キロ。\nメラメラ　もえながら　しんかんせんと\nおなじ　スピードで　かけぬける。")
+  text:override("_RaticateDexEntry", "ねずみうしろあしの　ゆびは　３ぼんで\nちいさな　みずかきが　ついている。\nかわを　およいで　わたる。")
+  text:override("_RattataDexEntry", "ねずみキバは　ながくて　するどい。\nいっしょう　のびつづけるので\nかたい　モノを　かじって　けずる。")
+  text:override("_RhydonDexEntry", "ドリルしんかして　うしろあし　だけで\nたつようになった。ツノで　つかれると\nがんせきにも　あながあいてしまう。")
+  text:override("_RhyhornDexEntry", "とげとげあたまは　わるいが　ちからが　つよく\nこうそうビルも　たいあたりで\nコナゴナに　ふんさいする。")
+  text:override("_SandshrewDexEntry", "ねずみじめんに　あなを　ほって　すむ。\nじぶんに　きけんが　せまると\nまるくなって　みを　まもる。")
+  text:override("_SandslashDexEntry", "ねずみすばしっこく　はしり　まわり\nせなかの　ハリと　するどい　ツメの\nこうげきが　とくい。")
+  text:override("_ScytherDexEntry", "かまきりするどいカマで　えものを　きりさき\nいきのねを　とめる。ごくまれに\nハネをつかって　とぶ。")
+  text:override("_SeadraDexEntry", "ドラゴンうかつに　さわろうとすると\nからだじゅうに　はえる　トゲに\nさされて　きぜつすることも　ある。")
+  text:override("_SeakingDexEntry", "きんぎょドリルのように　とがっているツノで\nいわはだを　くりぬき\nじぶんの　すを　つくっている。")
+  text:override("_SeelDexEntry", "あしかみずいろの　たいもうに　おおわれた\nひふは　ぶあつくて　じょうぶ。\nれいか４０ど　でも　かつどうできる。")
+  text:override("_ShellderDexEntry", "２まいがいダイヤモンドよりも　かたいカラに\nおおわれている。しかし　なかは\nいがいと　やわらかい。")
+  text:override("_SlowbroDexEntry", "やどかりヤドンが　うみへ　エサを\nとりにいったとき　シェルダーに\nしっぽをかまれ　ヤドランになった。")
+  text:override("_SlowpokeDexEntry", "まぬけいつも　ボーッとしていて　なにを\nかんがえているか　わからない。\nしっぽで　エサを　つるのが　とくい。")
+  text:override("_SnorlaxDexEntry", "いねむり１にちに　たべものを　４００キロ\nたべないと　きが　すまない。\nたべおわると　ねむってしまう。")
+  text:override("_SpearowDexEntry", "ことりいそがしく　あちこちを　とびまわる。\nたいりょくは　すくないが\nオウムがえしを　つかうと　てごわい。")
+  text:override("_SquirtleDexEntry", "かめのこながい　くびを　こうらのなかに\nひっこめるとき　いきおいよく\nみずでっぽうを　はっしゃする。")
+  text:override("_StarmieDexEntry", "なぞのきかがくてきな　ボディーから\nうちゅうせいぶつ　ではないかと\nじもとでは　うたがわれている。")
+  text:override("_StaryuDexEntry", "ほしがたうみべに　おおく　あらわれ\nよるになると　ちゅうしんが\nあかく　てんめつする。")
+  text:override("_TangelaDexEntry", "ツルじょうブルーの　つるしょくぶつが\nからみあい　しょうたいは　みえない。\nちかずくものに　からみついてくる。")
+  text:override("_TaurosDexEntry", "あばれうしたいあたりしてくるとき\n２ほんの　しっぽで　じぶんの\nからだを　ピシピシと　たたく。")
+  text:override("_TentacoolDexEntry", "くらげすいしょうの　ように　すきとおった\nめだまから　ふしぎな　ひかりの\nビームを　はっしゃする。")
+  text:override("_TentacruelDexEntry", "くらげ８０ぽん　の　しょくしゅが　じゆうに\nうごく。さされると　どくに　おかされ\nするどい　いたみが　はしる。")
+  text:override("_VaporeonDexEntry", "あわはきからだの　さいぼうの　つくりが\nみずの　ぶんしと　にている。\nみずに　とけると　みえなくなる。")
+  text:override("_VenomothDexEntry", "どくがはねに　りんぷんが　ついていて\nヒラヒラと　はばたくたびに\nもうどくの　こなを　ばらまく。")
+  text:override("_VenonatDexEntry", "こんちゅうくらやみでも　めが　レーダーの\nやくわりをして　かつどうできる。\nめから　ビームを　はっしゃする。")
+  text:override("_VenusaurDexEntry", "たねはなから　うっとりする　かおりが\nただよい　たたかうものの\nきもちを　なだめてしまう。")
+  text:override("_VictreebelDexEntry", "ハエとりミツの　ような　かおりで　くちの\nなかに　さそいこまれたら　さいご。\nようかいえきで　とかされてしまう。")
+  text:override("_VileplumeDexEntry", "フラワーせかいいち　おおきい　はなびらから\nアレルギーを　おこす　かふんを\nオニの　ように　ばらまく。")
+  text:override("_VoltorbDexEntry", "ボールしょうたい　ふめいの　いきもの。\nいやなおとを　だしたり　とつぜん\nじばくする　ことも　あるという。")
+  text:override("_VulpixDexEntry", "きつねこどもだが　６ほんの　しっぽが\nうつくしい。せいちょうすると\nさらに　しっぽが　ふえる。")
+  text:override("_WartortleDexEntry", "かめペットとして　にんきが　たかい。\nまた　けで　おおわれた　しっぽは\nながいきする　シンボルだ。")
+  text:override("_WeedleDexEntry", "けむしもりや　くさちに　おおく　せいそく。\nあたまの　さきに　５センチぐらいの\nちいさく　するどい　どくばりをもつ。")
+  text:override("_WeepinbellDexEntry", "ハエとりハッパの　ぶぶんは　カッターになって\nあいてを　きりさく。くちからは\nなんでも　とかす　えきたいを　はく。")
+  text:override("_WeezingDexEntry", "どくガスごくまれに　とつぜんへんいで\nふたごの　ちいさい　ドガースが\nれんけつしたまま　でることがある。")
+  text:override("_WigglytuffDexEntry", "ふうせんキメ　こまかく　しなやかな\nたいもうは　うっとりするほど。\nけがわは　こうきゅうひんだ。")
+  text:override("_ZapdosDexEntry", "でんげきでんせつの　とりポケモンの　ひとつ。\nとぶときに　バチバチと　なにかの\nはじけるような　おとがする。")
+  text:override("_ZubatDexEntry", "こうもりりょうほうの　めが　そんざいしない。\nくちから　ちょうおんぱを　だして\nくらやみを　とびまわる。")
+
+  print("[K89_GEN1_JP] Japanese Red v1.1 text delta active (151 Pokedex entries + trade wording)")
+else
+  print("[K89_GEN1_JP] Japanese Blue text catalog active")
+end
+
+
